@@ -1,7 +1,7 @@
 TylerB's Money Printers (v1)
 ==============
 
-These are my first attempt at making custom printers.
+These were my first attempt at making custom printers.
 
 When I started the project, I had no intention of adding more printers or resources (paper, ink, fans, etc) to the printers.
 
