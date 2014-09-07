@@ -12,4 +12,4 @@ DarkRP Integration
 
 These printers should add themselves to the F4 menu in 2.5.0+
 
-If they don't, for some reason, the DarkRP.createEntity() code is contained in [lua/autorun/tylerb_printers.lua](http://wiki.darkrp.com/index.php/Main_Page).
+If they don't, for some reason, the DarkRP.createEntity() code is contained in [lua/autorun/tylerb_printers.lua](https://github.com/TylerBundy/money_printers/blob/master/lua/darkrp_customthings/tylerb_printers.lua).
