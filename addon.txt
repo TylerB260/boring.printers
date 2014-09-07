@@ -1,0 +1,6 @@
+"AddonInfo"
+{
+	"name" "TylerB's Money Printers (v1)"
+	"author_name" "TylerB"
+	"info" " { 	"description": "Description", 	"type": "tool", 	"tags":  	[ 		"build", 		"roleplay" 	] }"
+}
