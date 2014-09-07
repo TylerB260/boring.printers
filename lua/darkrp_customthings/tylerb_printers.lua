@@ -1,5 +1,5 @@
 DarkRP.createEntity("Basic Printer", {
-    desc = "Prints money. Needs paper and ink to operate.", -- the desc options were a part of my old DarkRP derivative.
+	desc = "Prints money. Needs paper and ink to operate.", -- the desc options were a part of my old DarkRP derivative.
 	ent = "printer_base",
 	model = "models/props_c17/consolebox01a.mdl",
 	price = 250,
@@ -8,7 +8,7 @@ DarkRP.createEntity("Basic Printer", {
 })
 
 DarkRP.createEntity("Server Printer", {
-    desc = "Prints money. Needs paper and ink to operate.",
+	desc = "Prints money. Needs paper and ink to operate.",
 	ent = "printer_server",
 	model = "models/props_lab/reciever_cart.mdl",
 	price = 1000,
@@ -17,7 +17,7 @@ DarkRP.createEntity("Server Printer", {
 })
 
 DarkRP.createEntity("1 liter of ink", {
-    desc = "Use this on a printer to replenish the printer's ink.",
+	desc = "Use this on a printer to replenish the printer's ink.",
 	ent = "printer_ink",
 	model = "models/props_junk/metalgascan.mdl",
 	price = 25,
@@ -26,7 +26,7 @@ DarkRP.createEntity("1 liter of ink", {
 })
 
 DarkRP.createEntity("250 sheets of paper", {
-    desc = "Use this on a printer to replenish the printer's paper.",
+	desc = "Use this on a printer to replenish the printer's paper.",
 	ent = "printer_paper",
 	model = "models/props/cs_office/file_box.mdl",
 	price = 10,
@@ -35,7 +35,7 @@ DarkRP.createEntity("250 sheets of paper", {
 })
 
 DarkRP.createEntity("Replacement Fan", {
-    desc = "Use on a printer to fix the printer's fan.",
+	desc = "Use on a printer to fix the printer's fan.",
 	ent = "printer_fan",
 	model = "models/props/cs_assault/wall_vent.mdl",
 	price = 25,
