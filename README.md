@@ -18,7 +18,7 @@ Videos
 ==============
 [Overview](https://www.youtube.com/watch?v=OUqLzSzgGvQ)
 
-[First "milestone".](https://www.youtube.com/watch?v=5C0TZBnriWM)
+[First "milestone"](https://www.youtube.com/watch?v=5C0TZBnriWM)
 
 [Demonstrating relatively pointless smoke](https://www.youtube.com/watch?v=zGZ3Vf3LNqw)
 
