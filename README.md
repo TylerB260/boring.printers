@@ -16,8 +16,8 @@ If they don't, for some reason, the DarkRP.createEntity() code is contained in [
 
 Videos
 ==============
-[Overview](https://www.youtube.com/watch?v=OUqLzSzgGvQ).
+[Overview](https://www.youtube.com/watch?v=OUqLzSzgGvQ)
 
-[First "milestone".](https://www.youtube.com/watch?v=5C0TZBnriWM).
-[Demonstrating relatively pointless smoke](https://www.youtube.com/watch?v=zGZ3Vf3LNqw).
-[Demonstrating that users work on the printers](https://www.youtube.com/watch?v=0koqpP1OyJQ).
+[First "milestone".](https://www.youtube.com/watch?v=5C0TZBnriWM)
+[Demonstrating relatively pointless smoke](https://www.youtube.com/watch?v=zGZ3Vf3LNqw)
+[Demonstrating that users work on the printers](https://www.youtube.com/watch?v=0koqpP1OyJQ)
