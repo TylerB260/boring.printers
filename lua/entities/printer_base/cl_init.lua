@@ -7,6 +7,10 @@ net.Receive("printer_update",function()
     
     --print("Update: "..op.." operation on "..(ent:EntIndex()).." ID: "..val)
     
+	if ent.fan then
+		ent.fan:SetColor(ent:GetNWBool("BrokenFan", false) and Color(20, 20, 20) or Color(255, 255, 255))
+	end
+	
     ent["printer"..op] = math.Round(val,2)
 end)
 

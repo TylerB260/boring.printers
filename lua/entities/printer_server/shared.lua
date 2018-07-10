@@ -8,16 +8,16 @@ ENT.AdminSpawnable = false
 function ENT:Initialize()
     self:SetModel("models/props_lab/reciever_cart.mdl")
 
-    self.PrinterDelay = 0.025
-    self.PrinterAmount = 0.05
+    self.PrinterDelay = 0.1
+    self.PrinterAmount = 0.1 -- a dollar every 1 second
     self.PrinterSound = "ambient/machines/thumper_amb.wav"
-    self.PrinterPitch = 90
-    self.PrinterHeatRate = 0.4
+    self.PrinterPitch = 80
+    self.PrinterHeatRate = 0.25
     self.PrinterHeatMax = 148
-    self.PrinterInkRate = 0.0000375
-    self.PrinterInkMax = 15
-    self.PrinterPaperRate = 0.009375
-    self.PrinterPaperMax = 2500
+    self.PrinterInkRate = 0.00033333333 -- 1 liter every 3 minutes
+    self.PrinterInkMax = 5
+    self.PrinterPaperRate = 0.04166666666 -- 250 sheets every 6 minutes
+    self.PrinterPaperMax = 1000
     
     self.PrinterCurrentMoney = 0
     self.PrinterCurrentHeat = 0

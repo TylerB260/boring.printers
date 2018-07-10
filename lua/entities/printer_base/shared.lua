@@ -14,15 +14,15 @@ function ENT:Initialize()
     self.GoodIcon = Material("icon16/accept.png")
     
     self.PrinterDelay = 0.1
-    self.PrinterAmount = 0.01
+    self.PrinterAmount = 0.05 -- a dollar every 2 seconds
     self.PrinterSound = "ambient/machines/machine2.wav"
     self.PrinterPitch = 120
     self.PrinterHeatRate = 0.25
     self.PrinterHeatMax = 108
-    self.PrinterInkRate = 0.00005
-    self.PrinterInkMax = 3
-    self.PrinterPaperRate = 0.0125
-    self.PrinterPaperMax = 500
+    self.PrinterInkRate = 0.00033333333 -- 1 liter every 5 minutes
+    self.PrinterInkMax = 1
+    self.PrinterPaperRate = 0.04166666666 -- 250 sheets every 10 minutes
+    self.PrinterPaperMax = 250
     
     self.PrinterCurrentMoney = 0
     self.PrinterCurrentHeat = 0
