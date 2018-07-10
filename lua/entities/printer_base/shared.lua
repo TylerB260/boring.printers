@@ -14,7 +14,7 @@ function ENT:Initialize()
     self.GoodIcon = Material("icon16/accept.png")
     
     self.PrinterDelay = 0.1
-    self.PrinterAmount = 0.05
+    self.PrinterAmount = 0.01
     self.PrinterSound = "ambient/machines/machine2.wav"
     self.PrinterPitch = 120
     self.PrinterHeatRate = 0.25

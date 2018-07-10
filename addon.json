@@ -1,0 +1,11 @@
+{
+	"title"		:	"TylerB's Money Printers (v1)",
+	"type"		:	"tool",
+	"tags"		:	[ "roleplay", "build" ],
+	"ignore"	:
+    [
+		".git/*",
+        "LICENSE",
+        "README.md"
+    ]
+}

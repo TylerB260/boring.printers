@@ -9,7 +9,7 @@ function ENT:Initialize()
     self:SetModel("models/props_lab/reciever_cart.mdl")
 
     self.PrinterDelay = 0.1
-    self.PrinterAmount = 0.1
+    self.PrinterAmount = 0.05
     self.PrinterSound = "ambient/machines/thumper_amb.wav"
     self.PrinterPitch = 90
     self.PrinterHeatRate = 0.4
