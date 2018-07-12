@@ -10,6 +10,9 @@ function ENT:Touch(ent)
 		ent:SetNWBool("BrokenFan", false)
 		ent.BrokenFan = false
 		
+		ent.steam:Fire("turnon")
+        ent.smoke:Fire("turnoff")
+		
 		ent:EmitSound("ambient/machines/pneumatic_drill_"..math.random(1,4)..".wav", 80, 100)
 		
 		self:Remove()
