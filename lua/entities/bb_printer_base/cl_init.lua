@@ -1,5 +1,4 @@
 include("shared.lua")
-include("bb_printer_gui.lua")
 
 net.Receive("bb_printer_update", function()
 	local printer = net.ReadEntity()
