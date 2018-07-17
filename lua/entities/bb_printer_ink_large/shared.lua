@@ -2,7 +2,7 @@ ENT.Type = "anim"
 ENT.Base = "bb_printer_ink_small"
 ENT.PrintName = "Ink - 10000 mL"
 ENT.Author = "Tyler B."
-ENT.Spawnable = false
+ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
 ENT.PrinterInfo = { -- per second
@@ -12,7 +12,7 @@ ENT.PrinterInfo = { -- per second
 	},
 	
 	ink = {
-		max = 20000,
-		rate = 200
+		max = 10000,
+		rate = 100
 	}
 }

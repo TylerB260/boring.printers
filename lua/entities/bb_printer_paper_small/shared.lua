@@ -2,7 +2,7 @@ ENT.Type = "anim"
 ENT.Base = "bb_printer_base"
 ENT.PrintName = "Paper - 500 Sheets"
 ENT.Author = "Tyler B."
-ENT.Spawnable = false
+ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
 ENT.PrinterInfo = { -- per second

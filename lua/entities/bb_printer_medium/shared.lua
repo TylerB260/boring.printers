@@ -2,7 +2,7 @@ ENT.Type = "anim"
 ENT.Base = "bb_printer_small"
 ENT.PrintName = "Printer - Medium"
 ENT.Author = "Tyler B."
-ENT.Spawnable = false
+ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
 ENT.Sounds = {

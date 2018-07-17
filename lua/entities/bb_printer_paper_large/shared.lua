@@ -1,8 +1,8 @@
 ENT.Type = "anim"
 ENT.Base = "bb_printer_paper_small"
-ENT.PrintName = "Paper - 2000 Sheets"
+ENT.PrintName = "Paper - 5000 Sheets"
 ENT.Author = "Tyler B."
-ENT.Spawnable = false
+ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
 ENT.PrinterInfo = { -- per second
@@ -12,7 +12,7 @@ ENT.PrinterInfo = { -- per second
 	},
 	
 	paper = {
-		max = 10000,
-		rate = 100
+		max = 5000,
+		rate = 50
 	}
 }

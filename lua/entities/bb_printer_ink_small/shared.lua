@@ -1,8 +1,8 @@
 ENT.Type = "anim"
 ENT.Base = "bb_printer_base"
-ENT.PrintName = "Ink - 500 mL"
+ENT.PrintName = "Ink - 1000 mL"
 ENT.Author = "Tyler B."
-ENT.Spawnable = false
+ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
 ENT.PrinterInfo = { -- per second
