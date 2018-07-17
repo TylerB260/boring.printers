@@ -22,7 +22,7 @@ function ENT:Draw()
 			draw.DrawText("Paper", "TargetIDSmall", 25, 6, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(math.floor(self:GetStat("paper")), "TargetID", 25, 41, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("pages", "TargetIDSmall", 25, 53, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			self.self:drawIcon("icon16/page_copy.png", 26, 31, 16, 16)
+			self:drawIcon("icon16/page_copy.png", 26, 31, 16, 16)
 		end
 	cam.End3D2D()
 end
