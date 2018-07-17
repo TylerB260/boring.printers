@@ -55,3 +55,12 @@ function ENT:GetButtonPos() return self:LocalToWorld(self.PrinterInfo.button.pos
 function ENT:GetButtonSize() return self.PrinterInfo.button.size end
 function ENT:GetFanPos() return self:LocalToWorld(self.PrinterInfo.fan.pos) end
 function ENT:GetFanSize() return self.PrinterInfo.fan.size end
+
+function ENT:GetRunning()
+	if self:GetStat("speed") == 0 then return false end
+	if self:GetStat("paper") < self:GetRate("paper") then return false end
+	if self:GetStat("ink") < self:GetRate("ink") then return false end
+	if self:GetStat("money") >= self:GetStatMax("money") then return false end
+
+	return true
+end
