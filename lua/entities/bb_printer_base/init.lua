@@ -3,6 +3,8 @@ AddCSLuaFile("cl_init.lua")
 
 include("shared.lua")
 
+util.AddNetworkString("bb_printer_update")
+	
 function ENT:Initialize() -- spawn
 	self:SetModel("models/props_c17/consolebox03a.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
