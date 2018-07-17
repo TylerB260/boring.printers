@@ -1,5 +1,4 @@
 include("shared.lua")
-include("bb_printer_gui.lua")
 
 function ENT:Initialize() -- spawn
 	self:SetModel("models/props_junk/metalgascan.mdl")
