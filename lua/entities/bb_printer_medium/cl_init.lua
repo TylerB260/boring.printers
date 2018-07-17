@@ -63,36 +63,36 @@ function ENT:Draw()
 		
 		if self:GetDistance() < 256 then
 			-- paper --
-			drawRect(2, 2, 48, 77)
-			drawBar(4, 4, 44, 74, (self:GetStat("paper") / self:GetStatMax("paper")) * 100)
+			self.drawRect(2, 2, 48, 77)
+			self.drawBar(4, 4, 44, 74, (self:GetStat("paper") / self:GetStatMax("paper")) * 100)
 			
 			draw.DrawText("Paper", "TargetIDSmall", 25, 10, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(math.floor(self:GetStat("paper")), "TargetID", 25, 45, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("pages", "TargetIDSmall", 25, 57, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			drawIcon("icon16/page_copy.png", 26, 35, 16, 16)
+			self.self.drawIcon("icon16/page_copy.png", 26, 35, 16, 16)
 			
 			-- ink --
-			drawRect(52, 2, 48, 77)
-			drawBar(54, 4, 44, 74, (self:GetStat("ink") / self:GetStatMax("ink")) * 100, "redblue")
+			self.drawRect(52, 2, 48, 77)
+			self.drawBar(54, 4, 44, 74, (self:GetStat("ink") / self:GetStatMax("ink")) * 100, "redblue")
 			
 			draw.DrawText("Ink", "TargetIDSmall", 75, 10, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(math.floor(self:GetStat("ink")), "TargetID", 75, 45, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("mL", "TargetIDSmall", 75, 57, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			drawIcon("icon16/water.png", 76, 34, 16, 16)
+			self.self.drawIcon("icon16/water.png", 76, 34, 16, 16)
 			
 			-- cash --
-			drawRect(102, 2, 48, 77)
-			drawBar(104, 4, 44, 74, (self:GetStat("money") / self:GetStatMax("money")) * 100, "green")
+			self.drawRect(102, 2, 48, 77)
+			self.drawBar(104, 4, 44, 74, (self:GetStat("money") / self:GetStatMax("money")) * 100, "green")
 			
 			local pretty = self:GetStat("money") < 1 and (self:GetStat("money") * 100).."¢" or "$"..math.floor(self:GetStat("money"))
 			
 			draw.DrawText("Cash", "TargetIDSmall", 125, 10, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(pretty, "TargetID", 125, 51, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			drawIcon("icon16/money.png", 126, 35, 16, 16)
+			self.self.drawIcon("icon16/money.png", 126, 35, 16, 16)
 			
 			-- temp --
-			drawRect(152, 2, 8, 77)
-			drawBar(154, 4, 4, 74, (self:GetStat("heat") / self:GetStatMax("heat")) * 100, "greenred")
+			self.drawRect(152, 2, 8, 77)
+			self.drawBar(154, 4, 4, 74, (self:GetStat("heat") / self:GetStatMax("heat")) * 100, "greenred")
 			
 			
 			

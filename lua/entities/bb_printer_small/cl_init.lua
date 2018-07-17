@@ -109,37 +109,37 @@ function ENT:DrawHelp(w, h)
 		surface.DrawRect(0, 0, w, h)    
 		
 		if offender == "off" then
-			drawIcon("icon16/cross.png", w / 2, (h / 2) - 16, 24, 24)
+			self.drawIcon("icon16/cross.png", w / 2, (h / 2) - 16, 24, 24)
 			draw.DrawText("Printer is off.", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("Turn on with the slider.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 		end
 		
 		if offender == "both" then
-			drawIcon("icon16/cart.png", w / 2, (h / 2) - 16, 24, 24)
+			self.drawIcon("icon16/cart.png", w / 2, (h / 2) - 16, 24, 24)
 			draw.DrawText("Out of Supplies!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("Buy some paper and ink.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 		end
 		
 		if offender == "paper" then
-			drawIcon("icon16/page_copy.png", w / 2, (h / 2) - 16, 24, 24)
+			self.drawIcon("icon16/page_copy.png", w / 2, (h / 2) - 16, 24, 24)
 			draw.DrawText("Out of Paper!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("Buy some paper.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 		end
 		
 		if offender == "ink" then
-			drawIcon("icon16/water.png", w / 2, (h / 2) - 16, 24, 24)
+			self.drawIcon("icon16/water.png", w / 2, (h / 2) - 16, 24, 24)
 			draw.DrawText("Out of Ink!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("Buy some ink.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 		end
 		
 		if offender == "money" then
-			drawIcon("icon16/money.png", w / 2, (h / 2) - 16, 24, 24)
+			self.drawIcon("icon16/money.png", w / 2, (h / 2) - 16, 24, 24)
 			draw.DrawText("Storage Full!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("Money storage is full.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)    
 		end
 		
 		if offender == "fan" then
-			drawIcon("icon16/fire.png", w / 2, (h / 2) - 16, 24, 24)
+			self.drawIcon("icon16/fire.png", w / 2, (h / 2) - 16, 24, 24)
 			draw.DrawText("Damaged Fan!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("Buy a replacement fan!", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 		end
@@ -166,36 +166,36 @@ function ENT:Draw()
 		
 		if self:GetDistance() < 256 then
 			-- paper --
-			drawRect(2, 2, 48, 69)
-			drawBar(4, 4, 44, 66, (self:GetStat("paper") / self:GetStatMax("paper")) * 100)
+			self.drawRect(2, 2, 48, 69)
+			self.drawBar(4, 4, 44, 66, (self:GetStat("paper") / self:GetStatMax("paper")) * 100)
 			
 			draw.DrawText("Paper", "TargetIDSmall", 25, 6, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(math.floor(self:GetStat("paper")), "TargetID", 25, 41, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("pages", "TargetIDSmall", 25, 53, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			drawIcon("icon16/page_copy.png", 26, 31, 16, 16)
+			self.drawIcon("icon16/page_copy.png", 26, 31, 16, 16)
 			
 			-- ink --
-			drawRect(52, 2, 48, 69)
-			drawBar(54, 4, 44, 66, (self:GetStat("ink") / self:GetStatMax("ink")) * 100, "redblue")
+			self.drawRect(52, 2, 48, 69)
+			self.drawBar(54, 4, 44, 66, (self:GetStat("ink") / self:GetStatMax("ink")) * 100, "redblue")
 			
 			draw.DrawText("Ink", "TargetIDSmall", 75, 6, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(math.floor(self:GetStat("ink")), "TargetID", 75, 41, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("mL", "TargetIDSmall", 75, 53, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			drawIcon("icon16/water.png", 76, 30, 16, 16)
+			self.drawIcon("icon16/water.png", 76, 30, 16, 16)
 			
 			-- cash --
-			drawRect(102, 2, 48, 69)
-			drawBar(104, 4, 44, 66, (self:GetStat("money") / self:GetStatMax("money")) * 100, "green")
+			self.drawRect(102, 2, 48, 69)
+			self.drawBar(104, 4, 44, 66, (self:GetStat("money") / self:GetStatMax("money")) * 100, "green")
 			
 			local pretty = self:GetStat("money") < 1 and (self:GetStat("money") * 100).."¢" or "$"..math.floor(self:GetStat("money"))
 			
 			draw.DrawText("Cash", "TargetIDSmall", 125, 6, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(pretty, "TargetID", 125, 47, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			drawIcon("icon16/money.png", 126, 31, 16, 16)
+			self.drawIcon("icon16/money.png", 126, 31, 16, 16)
 			
 			-- temp --
-			drawRect(152, 2, 34, 69)
-			drawBar(154, 4, 30, 66, (self:GetStat("heat") / self:GetStatMax("heat")) * 100, "greenred")
+			self.drawRect(152, 2, 34, 69)
+			self.drawBar(154, 4, 30, 66, (self:GetStat("heat") / self:GetStatMax("heat")) * 100, "greenred")
 			
 			draw.DrawText(math.floor(self:GetStat("heat")).."°", "TargetIDSmall", 169, 47, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			
