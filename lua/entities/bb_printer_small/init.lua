@@ -32,22 +32,38 @@ end
 function ENT:Use(ply)
 	if !ply then return end
 	
-	if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
-		if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
-		self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
-		if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
-		
-		self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
-	else
-		local money = math.floor(self:GetStat("money"))
-		
-		if money > 0 then
-			ply:addMoney(money)
-			self:SetStat("money", self:GetStat("money") - money)
-			DarkRP.notify(ply, 0, 4, DarkRP.getPhrase("found_money", DarkRP.formatMoney(money)))
-			self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
+	if ply:IsPlayer() then
+		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
+			if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
+			self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
+			if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
+			
+			self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
+		else
+			local money = math.floor(self:GetStat("money"))
+			
+			if money > 0 then
+				ply:addMoney(money)
+				self:SetStat("money", self:GetStat("money") - money)
+				DarkRP.notify(ply, 0, 4, DarkRP.getPhrase("found_money", DarkRP.formatMoney(money)))
+				self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
+			end
 		end
-	end
+	elseif ply:GetClass() == "gmod_wire_user" then
+        local trace = util.TraceLine( {
+            start = ply,
+            endpos = ply:GetPos() + (ply:GetUp() * ply:GetBeamLength()),
+            filter = {caller},
+        })
+
+        if trace.HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
+			if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
+			self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
+			if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
+			
+			self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
+        end    
+    end
 end
 
 function ENT:OnTakeDamage(dmg)
