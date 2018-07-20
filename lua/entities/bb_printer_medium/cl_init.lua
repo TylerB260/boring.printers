@@ -10,7 +10,7 @@ function ENT:Initialize() -- spawn
 	self.MotorSound = CreateSound(self, self.Sounds.motor.path)
 	self.MotorSound:SetSoundLevel(60)
 	
-	self.FanSound = CreateSound(self, "ambient/office/tech_room.wav")
+	self.FanSound = CreateSound(self, "boring.builders/server_fan.wav")
 	self.FanSound:SetSoundLevel(60)
 end
 

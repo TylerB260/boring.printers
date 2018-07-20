@@ -2,6 +2,7 @@ AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
 
 include("shared.lua")
+resource.AddFile("sound/boring.builders/server_fan.wav")
 
 function ENT:Initialize() -- spawn
 	self:SetModel("models/props_c17/consolebox03a.mdl")
