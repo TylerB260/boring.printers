@@ -13,6 +13,6 @@ ENT.PrinterInfo = { -- per second
 	
 	ink = {
 		max = 10000,
-		rate = 100
+		rate = 50
 	}
 }

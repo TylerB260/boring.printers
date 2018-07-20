@@ -13,6 +13,6 @@ ENT.PrinterInfo = { -- per second
 	
 	paper = {
 		max = 2000,
-		rate = 20
+		rate = 10
 	}
 }

@@ -32,10 +32,9 @@ function ENT:Use(ply)
 	if !ply then return end
 	
 	if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
+		if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
 		self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
-		
 		if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
-		if self:GetStat("speed") == 0 then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
 		
 		self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
 	else
@@ -47,6 +46,22 @@ function ENT:Use(ply)
 			DarkRP.notify(ply, 0, 4, DarkRP.getPhrase("found_money", DarkRP.formatMoney(money)))
 			self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
 		end
+	end
+end
+
+function ENT:OnTakeDamage(dmg)
+	if dmg:GetDamagePosition():Distance(self:GetFanPos()) < self:GetFanSize() and self:GetStat("fan") == 1 then
+		self:BreakFan()
+	end
+	
+	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
+	
+	if self:GetStat("health") <= 0 then
+		self:Explode()
+	end
+	
+	if self:GetStat("health") <= 10 and not self:IsOnFire() then
+		self:Ignite(300)
 	end
 end
 
