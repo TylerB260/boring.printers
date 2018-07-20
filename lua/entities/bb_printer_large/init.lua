@@ -22,6 +22,8 @@ function ENT:Initialize() -- spawn
 	self:SetStat("speed", 0)
 	self:SetStat("fan", 1)
 	
+	self:GetPhysicsObject():SetMass(250)
+	
 	timer.Simple(0, function()
 		if IsValid(self) then self:BroadcastUpdate() end
 		if IsValid(self.smoke) then self.smoke:Remove() end
