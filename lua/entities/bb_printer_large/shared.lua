@@ -17,7 +17,7 @@ ENT.Sounds = {
 
 ENT.PrinterInfo = { -- per second
 	button = {
-		pos = Vector(13, 0, 28.5),
+		pos = Vector(14, 0, 28.5),
 		size = 16
 	},
 	
