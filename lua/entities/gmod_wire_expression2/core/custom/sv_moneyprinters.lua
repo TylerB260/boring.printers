@@ -8,17 +8,17 @@ end
 
 e2function normal entity:printerGetStat(string stat)
 	if not IsValid(this) then return 0 end
-	if this.GetStat then return this:GetStat(string.lower(stat)) end
+	if this.GetStat then return this:GetStat(string.lower(stat)) or 0 end
 end
 
 e2function normal entity:printerGetStatMax(string stat)
 	if not IsValid(this) then return 0 end
-	if this.GetStatMax then return this:GetStatMax(string.lower(stat)) end
+	if this.GetStatMax then return this:GetStatMax(string.lower(stat)) or 0 end
 end
 
 e2function normal entity:printerGetRate(string stat)
 	if not IsValid(this) then return 0 end
-	if this.GetRate then return this:GetRate(string.lower(stat)) end
+	if this.GetRate then return this:GetRate(string.lower(stat)) or 0 end
 end
 
 e2function vector entity:printerGetFanPos()
