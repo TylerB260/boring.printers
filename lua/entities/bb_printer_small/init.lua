@@ -29,12 +29,10 @@ function ENT:Initialize() -- spawn
 	end)
 end
 
-function ENT:Use(_, ply)
+function ENT:Use(ply)
 	if not ply or not IsValid(ply) then return end
 	
-	print(ply)
-	
-	if ply:IsPlayer() then
+	if ply:GetPos():Distance(self:GetPos()) < 128 then
 		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
 			if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
 			self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
@@ -51,21 +49,27 @@ function ENT:Use(_, ply)
 				self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
 			end
 		end
-	elseif ply:GetClass() == "gmod_wire_user" then
-        local trace = util.TraceLine( {
-            start = ply,
-            endpos = ply:GetPos() + (ply:GetUp() * ply:GetBeamLength()),
-            filter = {caller},
-        })
-
-        if trace.HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
-			if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
-			self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
-			if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
-			
-			self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
-        else
-			self.EmitSound("buttons/button8.wav", 60, 100)
+	else -- it's a user
+		local user = nil
+		
+		for k, v in pairs(ents.FindByClass("gmod_wire_user")) do -- find all users
+			if v.Inputs and v.Inputs.Fire and v.Inputs.Fire.Value > 0 then -- is it firing?
+				local trace = util.TraceLine( {
+					start = ply,
+					endpos = ply:GetPos() + (ply:GetUp() * ply:GetBeamLength()),
+					filter = {caller},
+				})
+				
+				if trace.HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then -- GOTCHA!!
+					if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
+					self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
+					if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
+					
+					self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
+				elseif trace.Entity == self then -- gotcha, but no money for you!
+					self.EmitSound("buttons/button8.wav", 60, 100)
+				end
+			end
 		end
     end
 end
