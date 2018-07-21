@@ -30,7 +30,7 @@ function ENT:OnTakeDamage(dmg)
 	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
 	
 	if self:GetStat("health") <= 0 then
-		self:EmitSound("physics/cardboard/cardboard_box_break"..math.random(1,3)..".wav", 60) <= 0 then
+		self:EmitSound("physics/cardboard/cardboard_box_break"..math.random(1,3)..".wav", 60)
 		self:Remove()
 	end
 end
