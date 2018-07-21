@@ -65,7 +65,7 @@ function ENT:Use(ply)
 					
 					self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
 				elseif trace.Entity == self then -- gotcha, but no money for you!
-					self.EmitSound("buttons/button8.wav", 60, 100)
+					self:EmitSound("buttons/button8.wav", 60, 100)
 				end
 			end
 		end
