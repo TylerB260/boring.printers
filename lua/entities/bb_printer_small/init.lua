@@ -167,11 +167,7 @@ function ENT:Think() -- increase stuff based on tickrate!!
 		self:SetStat("money", self:GetStat("money") + (self:GetRate("money") * 0.1 * mul))
 		
 		if self:GetStat("heat") >= self:GetStatMax("heat") and not self:IsOnFire() then
-			self:Ignite(30)
-		end
-		
-		if self:GetStat("heat") <= 70 and self:IsOnFire() then
-			self:Extinguish()
+			self:Ignite(5)
 		end
 		
 		local boom = 0
