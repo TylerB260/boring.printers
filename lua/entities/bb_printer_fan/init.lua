@@ -22,7 +22,7 @@ function ENT:Touch(ent)
 	if not self.used and ent.PrinterStats and ent:GetStat("heat") > 0 then -- its a printer
 		if ent:GetStat("fan") == 0 or ent:GetStat("health") != ent:GetStatMax("health") then
 			self.used = true
-			ent:SetStat("health", self:GetStatMax("health"))
+			ent:SetStat("health", ent:GetStatMax("health"))
 			ent:FixFan()
 			self:Remove()
 		end
