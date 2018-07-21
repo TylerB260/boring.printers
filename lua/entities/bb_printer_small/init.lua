@@ -55,8 +55,8 @@ function ENT:Use(ply)
 		for k, v in pairs(ents.FindByClass("gmod_wire_user")) do -- find all users
 			if v.Inputs and v.Inputs.Fire and v.Inputs.Fire.Value > 0 then -- is it firing?
 				local trace = util.TraceLine( {
-					start = ply,
-					endpos = ply:GetPos() + (ply:GetUp() * ply:GetBeamLength()),
+					start = user:GetPos(),
+					endpos = user:GetPos() + (user:GetUp() * user:GetBeamLength()),
 					filter = {caller},
 				})
 				
