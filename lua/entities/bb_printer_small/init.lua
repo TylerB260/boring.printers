@@ -29,9 +29,8 @@ function ENT:Initialize() -- spawn
 	end)
 end
 
-function ENT:Use(ply)
+function ENT:Use(_, ply)
 	if not ply or not IsValid(ply) then return end
-	RunConsoleCommand("say", ply:GetClass())
 	
 	if ply:IsPlayer() then
 		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
@@ -63,7 +62,9 @@ function ENT:Use(ply)
 			if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
 			
 			self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
-        end    
+        else
+			self.EmitSound("buttons/button8.wav", 60, 100)
+		end
     end
 end
 
