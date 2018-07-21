@@ -84,7 +84,7 @@ function ENT:OnTakeDamage(dmg)
 	end
 	
 	if self:GetStat("health") <= 10 and not self:IsOnFire() then
-		self:Ignite(300)
+		self:Ignite(30)
 	end
 end
 
