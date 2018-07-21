@@ -30,7 +30,7 @@ function ENT:Initialize() -- spawn
 end
 
 function ENT:Use(ply)
-	if !ply then return end
+	if not ply or not IsValid(ply) then return end
 	
 	if ply:IsPlayer() then
 		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
@@ -50,7 +50,9 @@ function ENT:Use(ply)
 			end
 		end
 	elseif ply:GetClass() == "gmod_wire_user" then
-        local trace = util.TraceLine( {
+        RunConsoleCommand("say", "beep")
+		
+		local trace = util.TraceLine( {
             start = ply,
             endpos = ply:GetPos() + (ply:GetUp() * ply:GetBeamLength()),
             filter = {caller},
