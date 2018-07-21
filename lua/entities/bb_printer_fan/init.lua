@@ -19,7 +19,8 @@ function ENT:Initialize() -- spawn
 end
 
 function ENT:Touch(ent)
-	if ent.PrinterStats and ent:GetStat("heat") > 0 and ent:GetStat("fan") == 0  then -- its a printer
+	if not self.used and ent.PrinterStats and ent:GetStat("heat") > 0 and ent:GetStat("fan") == 0  then -- its a printer
+		self.used = true
 		ent:FixFan()
 		self:Remove()
 	end
