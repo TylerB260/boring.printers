@@ -34,7 +34,7 @@ end
 function ENT:OnTakeDamage(dmg)
 	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
 	
-	if self:GetStat("health")
+	if self:GetStat("health") <= 0 then
 		self:EmitSound("physics/plastic/plastic_box_impact_bullet"..math.random(1,5)..".wav", 60) <= 0 then
 		self:Remove()
 	end
