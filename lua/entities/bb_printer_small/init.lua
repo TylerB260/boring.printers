@@ -112,6 +112,8 @@ function ENT:Explode()
 end
 
 function ENT:BreakFan()
+	self:PhysWake() -- make stuff jiggle so fan fixes 
+	
 	self:SetStat("fan", 0)
 	self:EmitSound(self.Sounds.alert.path, 100, self.Sounds.alert.pitch)
 	
@@ -165,7 +167,11 @@ function ENT:Think() -- increase stuff based on tickrate!!
 		self:SetStat("money", self:GetStat("money") + (self:GetRate("money") * 0.1 * mul))
 		
 		if self:GetStat("heat") >= self:GetStatMax("heat") and not self:IsOnFire() then
-			self:Ignite(300)
+			self:Ignite(30)
+		end
+		
+		if self:GetStat("heat") <= 70 and self:IsOnFire() then
+			self:Extinguish()
 		end
 		
 		local boom = 0
