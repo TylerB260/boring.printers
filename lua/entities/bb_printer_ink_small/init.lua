@@ -29,7 +29,7 @@ function ENT:OnTakeDamage(dmg)
 	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
 	
 	if self:GetStat("health") <= 0 then
-		self:EmitSound("physics/metal/metal_barrel_impact_hard"..math.random(1,7)..".wav", 60)
+		sound.Play("physics/metal/metal_barrel_impact_hard"..math.random(1,7)..".wav", self:GetPos(), 60)
 		self:Remove()
 	end
 end
