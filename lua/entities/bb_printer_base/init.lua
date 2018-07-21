@@ -69,6 +69,25 @@ function ENT:Think() -- increase stuff based on tickrate!!
 	local hcol = (self:GetStat("health") / self:GetStatMax("health")) * 255
 	
 	self:SetColor(Color(255, hcol, hcol))
+	
+	if self:WaterLevel >= 1 then
+		local effectdata = EffectData()
+		effectdata:SetStart(self.FanPos)
+		effectdata:SetOrigin(self.FanPos)
+		effectdata:SetScale(1)
+		effectdata:SetMagnitude(1)
+		effectdata:SetScale(3)
+		effectdata:SetRadius(1)
+		effectdata:SetEntity(self)
+		
+		for i = 1, 100 do timer.Simple(1/i, function() util.Effect("TeslaHitBoxes", effectdata, true, true) end) end
+
+		self:TakeDamage( 2, self, self )
+				
+		local Zap = math.random(1,9)
+		if Zap == 4 then Zap = 3 end
+		self:EmitSound("ambient/energy/zap"..Zap..".wav",80,math.random(95,105))
+	end
 end
 
 timer.Create("bb_printer_think", 0.1, 0, function()
