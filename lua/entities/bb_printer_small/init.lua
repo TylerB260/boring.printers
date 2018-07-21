@@ -32,7 +32,7 @@ end
 function ENT:Use(ply)
 	if not ply or not IsValid(ply) then return end
 	
-	if ply:GetPos():Distance(self:GetPos()) < 128 and ply:GetEyeTrace().Entity == self then
+	if ply:GetPos():Distance(self:GetPos()) < 92 and ply:GetEyeTrace().Entity == self and ply:KeyDown(IN_USE) then
 		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
 			if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
 			self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
@@ -46,7 +46,7 @@ function ENT:Use(ply)
 				ply:addMoney(money)
 				self:SetStat("money", self:GetStat("money") - money)
 				DarkRP.notify(ply, 0, 4, DarkRP.getPhrase("found_money", DarkRP.formatMoney(money)))
-				self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
+				DarkRP.createMoneyBag(self:LocalToWorld(self.PrintPos), math.Clamp(math.Round(amt),0,self.PrinterMaxMoney))self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
 			end
 		end
 	else -- it's a user
@@ -65,7 +65,13 @@ function ENT:Use(ply)
 					
 					self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
 				elseif trace.Entity == self then -- gotcha, but no money for you!
-					self:EmitSound("buttons/button8.wav", 60, 100)
+					local money = math.floor(self:GetStat("money"))
+			
+					if money > 0 then
+						self:SetStat("money", self:GetStat("money") - money)
+						self:EmitSound("buttons/button8.wav", 60, 100)
+						DarkRP.createMoneyBag(self:GetFanPos(), money)
+					end
 				end
 			end
 		end
