@@ -32,6 +32,8 @@ end
 function ENT:Use(_, ply)
 	if not ply or not IsValid(ply) then return end
 	
+	print(ply)
+	
 	if ply:IsPlayer() then
 		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
 			if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
