@@ -70,7 +70,7 @@ function ENT:Think() -- increase stuff based on tickrate!!
 	
 	self:SetColor(Color(255, hcol, hcol))
 	
-	if self:WaterLevel >= 1 then
+	if self:WaterLevel() >= 1 then
 		local effectdata = EffectData()
 		effectdata:SetStart(self.FanPos)
 		effectdata:SetOrigin(self.FanPos)
