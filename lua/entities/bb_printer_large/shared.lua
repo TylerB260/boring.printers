@@ -43,7 +43,7 @@ ENT.PrinterInfo = { -- per second
 	
 	money = {
 		max = 5000,
-		rate = 5
+		rate = 3
 	},
 	
 	heat = {
