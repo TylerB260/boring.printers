@@ -46,7 +46,7 @@ function ENT:Use(ply)
 				ply:addMoney(money)
 				self:SetStat("money", self:GetStat("money") - money)
 				DarkRP.notify(ply, 0, 4, DarkRP.getPhrase("found_money", DarkRP.formatMoney(money)))
-				DarkRP.createMoneyBag(self:LocalToWorld(self.PrintPos), math.Clamp(math.Round(amt),0,self.PrinterMaxMoney))self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
+				self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
 			end
 		end
 	else -- it's a user
@@ -69,7 +69,7 @@ function ENT:Use(ply)
 			
 					if money > 0 then
 						self:SetStat("money", self:GetStat("money") - money)
-						self:EmitSound("buttons/button8.wav", 60, 100)
+						self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
 						DarkRP.createMoneyBag(self:GetFanPos(), money)
 					end
 				end
