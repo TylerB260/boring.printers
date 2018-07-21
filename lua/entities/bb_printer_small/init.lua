@@ -50,13 +50,17 @@ function ENT:Use(ply)
 			end
 		end
 	else -- it's a user
+		print("its a user")
 		for k, v in pairs(ents.FindByClass("gmod_wire_user")) do -- find all users
+			print("checking "..tostring(v)..": "..v.Inputs.Fire.Value)
 			if v.Inputs and v.Inputs.Fire and v.Inputs.Fire.Value > 0 then -- is it firing?
 				local trace = util.TraceLine( {
 					start = v:GetPos(),
 					endpos = v:GetPos() + (v:GetUp() * v:GetBeamLength()),
 					filter = {caller},
 				})
+				
+				print("checking trace... "..trace.HitPos:Distance(self:GetButtonPos()).." units!")
 				
 				if trace.HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then -- GOTCHA!!
 					if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
