@@ -84,7 +84,7 @@ function ENT:OnTakeDamage(dmg)
 	end
 	
 	if self:GetStat("health") <= 10 and not self:IsOnFire() then
-		self:Ignite(30)
+		self:Ignite(15)
 	end
 end
 
@@ -167,7 +167,7 @@ function ENT:Think() -- increase stuff based on tickrate!!
 		self:SetStat("money", self:GetStat("money") + (self:GetRate("money") * 0.1 * mul))
 		
 		if self:GetStat("heat") >= self:GetStatMax("heat") and not self:IsOnFire() then
-			self:Ignite(5)
+			self:Ignite(15)
 		end
 		
 		local boom = 0
