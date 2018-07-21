@@ -60,7 +60,7 @@ function ENT:Use(ply)
 					filter = {caller},
 				})
 				
-				self.EmitSound("plats/elevbell1.wav", 60, 100)
+				self:EmitSound("plats/elevbell1.wav", 60, 100)
 				print("checking trace... "..trace.HitPos:Distance(self:GetButtonPos()).." units!")
 				
 				if trace.HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then -- GOTCHA!!
