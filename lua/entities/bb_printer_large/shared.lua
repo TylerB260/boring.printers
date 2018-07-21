@@ -6,7 +6,7 @@ ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
 ENT.Sounds = {
-	motor = {path = "ambient/machines/thumper_amb.wav", pitch = 100},
+	motor = {path = "ambient/atmosphere/amb_industrial_02.wav", pitch = 100},
 	
 	start = {path = "ambient/machines/thumper_startup1.wav", pitch = 80},
 	stop = {path = "ambient/machines/thumper_shutdown1.wav", pitch = 80},

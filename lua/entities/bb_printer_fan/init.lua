@@ -19,10 +19,13 @@ function ENT:Initialize() -- spawn
 end
 
 function ENT:Touch(ent)
-	if not self.used and ent.PrinterStats and ent:GetStat("heat") > 0 and ent:GetStat("fan") == 0  then -- its a printer
-		self.used = true
-		ent:FixFan()
-		self:Remove()
+	if not self.used and ent.PrinterStats and ent:GetStat("heat") > 0 then -- its a printer
+		if ent:GetStat("fan") == 0 or ent:GetStat("health") != ent:GetStatMax("health") then
+			self.used = true
+			ent:SetStat("health", self:GetStatMax("health"))
+			ent:FixFan()
+			self:Remove()
+		end
 	end
 	
 	self:PhysWake()
