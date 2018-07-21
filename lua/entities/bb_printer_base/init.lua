@@ -72,8 +72,8 @@ function ENT:Think() -- increase stuff based on tickrate!!
 	
 	if self:WaterLevel() >= 1 then
 		local effectdata = EffectData()
-		effectdata:SetStart(self:GetFanPos())
-		effectdata:SetOrigin(self:GetFanPos())
+		effectdata:SetStart(self:GetPos())
+		effectdata:SetOrigin(self:GetPos())
 		effectdata:SetScale(1)
 		effectdata:SetMagnitude(1)
 		effectdata:SetScale(3)
