@@ -32,7 +32,7 @@ end
 function ENT:Use(ply)
 	if not ply or not IsValid(ply) then return end
 	
-	if ply:GetPos():Distance(self:GetPos()) < 128 then
+	if ply:GetPos():Distance(self:GetPos()) < 128 and ply:GetEyeTrace().Entity == self then
 		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
 			if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
 			self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
