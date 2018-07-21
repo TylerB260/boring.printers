@@ -1,3 +1,5 @@
+print("test, moneyprinter stuff")
+
 e2function normal entity:isPrinter()
 	if not IsValid(this) then return 0 end
 	
