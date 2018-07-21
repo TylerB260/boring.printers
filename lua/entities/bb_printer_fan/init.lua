@@ -4,7 +4,7 @@ AddCSLuaFile("cl_init.lua")
 include("shared.lua")
 
 function ENT:Initialize() -- spawn
-	self:SetModel("models/props/cs_assault/wall_vent.mdl")
+	self:SetModel("models/props/de_prodigy/fanoff.mdl")
 	self:PhysicsInit(SOLID_VPHYSICS)
 	self:SetSolid(SOLID_VPHYSICS)
 	self:SetMoveType(MOVETYPE_VPHYSICS)
