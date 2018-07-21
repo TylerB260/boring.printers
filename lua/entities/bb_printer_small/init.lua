@@ -222,7 +222,7 @@ function ENT:Think() -- increase stuff based on tickrate!!
 		effectdata:SetRadius(1)
 		effectdata:SetEntity(self)
 		
-		for i = 1, 100 do timer.Simple(1/i, function() util.Effect("TeslaHitBoxes", effectdata, true, true) end) end
+		util.Effect("TeslaHitBoxes", effectdata, true, true)
 
 		self:TakeDamage( 2, self, self )
 				

@@ -21,6 +21,16 @@ end
 
 function ENT:Use()
 	if self:GetStat("paper") == 0 then 
+		self:TakeDamage(self:GetStatMax("health"), self, self)
+		self:Remove()
+	end
+end
+
+function ENT:OnTakeDamage(dmg)
+	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
+	
+	if self:GetStat("health")
+		self:EmitSound("physics/cardboard/cardboard_box_break"..math.random(1,3)..".wav", 60) <= 0 then
 		self:Remove()
 	end
 end

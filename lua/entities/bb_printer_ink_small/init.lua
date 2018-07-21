@@ -25,6 +25,15 @@ function ENT:Use()
 	end
 end
 
+function ENT:OnTakeDamage(dmg)
+	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
+	
+	if self:GetStat("health")
+		self:EmitSound("physics/metal/metal_barrel_impact_hard"..math.random(1,7)..".wav", 60) <= 0 then
+		self:Remove()
+	end
+end
+
 function ENT:Touch(ent)
 	if ent.PrinterStats and ent.PrinterStats.ink and (CurTime() - self.lastthink == 0 or CurTime() - self.lastthink >= 0.1) then
 		if self:GetPos().z > ent:GetPos().z then
