@@ -142,7 +142,7 @@ end
 
 function ENT:FixFan()
 	self:SetStat("fan", 1)
-	self.smoke:Fire("turnoff", "", 0)
+	if self.smoke then self.smoke:Fire("turnoff", "", 0) end
 	self:EmitSound("ambient/machines/pneumatic_drill_"..math.random(1,4)..".wav", 80)
 end
 
