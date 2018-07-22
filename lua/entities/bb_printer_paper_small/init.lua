@@ -35,7 +35,7 @@ function ENT:Touch(ent)
 			if ent:GetStat("paper") <= ent:GetStatMax("paper") - 1 then
 				local avail = math.min(math.ceil(ent:GetStatMax("paper") - ent:GetStat("paper")), math.min(self:GetRate("paper"), self:GetStat("paper")))
 				
-				if ent:GetStat("paper") <= 0 then 
+				if avail <= 0 then 
 					self:Remove()
 					return 
 				end
@@ -48,5 +48,12 @@ function ENT:Touch(ent)
 		
 		self.lastthink = CurTime()
 		self:PhysWake()
+	end
+end
+
+function ENT:Think()
+	if self:GetStat("paper") <= 0 then 
+		self:Remove()
+		return 
 	end
 end
