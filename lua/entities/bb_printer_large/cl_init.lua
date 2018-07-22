@@ -59,12 +59,12 @@ function ENT:Initialize() -- spawn
 		ang:RotateAroundAxis(ang:Right(), 270)
 		
 		cam.Start3D2D(pos, ang, 0.2)
-			if self:GetDistance() < 512 then
+			if self:GetDistance() < 1024 then
 				surface.SetDrawColor(Color(0, 0, 0, 255)) -- background
 				surface.DrawRect(0, 0, 202, 74)    
 			end
 			
-			if self:GetDistance() < 256 then
+			if self:GetDistance() < 512 then
 				-- paper --
 				self:drawRect(2, 2, 48, 69)
 				self:drawBar(4, 4, 44, 66, (self:GetStat("paper") / self:GetStatMax("paper")) * 100)
