@@ -142,6 +142,7 @@ function ENT:Purchase(ply)
 	gun:SetWeaponClass(self.gun)
 	gun:SetPos(self:LocalToWorld(Vector(0, 0, 16)))
 	gun.nodupe = true
+	gun.ammoadd = weapons.Get(self.gun) and weapons.Get(self.gun).Primary.DefaultClip or 0
 	gun:Spawn()
 	
 	gun:EmitSound("garrysmod/balloon_pop_cute.wav", 80)
