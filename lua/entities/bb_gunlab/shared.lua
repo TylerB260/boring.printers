@@ -12,6 +12,9 @@ ENT.PrinterInfo = { -- per second
 	}
 }
 
+function ENT:SetupDataTables()
+	self:NetworkVar("Entity", 0, "owning_ent")
+end
 
 function ENT:GetDealer()
 	if self.CPPIGetOwner then return self:CPPIGetOwner() end
