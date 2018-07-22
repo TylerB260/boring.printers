@@ -17,8 +17,8 @@ function ENT:SetupDataTables()
 end
 
 function ENT:GetDealer()
-	if self.CPPIGetOwner then return self:CPPIGetOwner() end
 	if self.Getowning_ent then return self:Getowning_ent() end
+	if self.CPPIGetOwner and self.CPPIGetOwner:IsPlayer() then return self:CPPIGetOwner() end
 	
 	return false
 end
