@@ -19,12 +19,6 @@ function ENT:Initialize() -- spawn
 	self.lastthink = 0
 end
 
-function ENT:Use()
-	if self:GetStat("ink") == 0 then 
-		self:Remove()
-	end
-end
-
 function ENT:OnTakeDamage(dmg)
 	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
 	
@@ -41,7 +35,10 @@ function ENT:Touch(ent)
 			if ent:GetStat("ink") <= ent:GetStatMax("ink") - 1 then
 				local avail = math.min(math.ceil(ent:GetStatMax("ink") - ent:GetStat("ink")), math.min(self:GetRate("ink"), self:GetStat("ink")))
 				
-				if avail <= 0 then return end
+				if avail <= 0 then 
+					self:Remove()
+					return 
+				end
 				
 				self:EmitSound("ambient/water/drip"..math.random(1,4)..".wav", 60, 125)
 				self:SetStat("ink", self:GetStat("ink") - avail)

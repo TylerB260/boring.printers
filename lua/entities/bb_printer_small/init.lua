@@ -69,7 +69,7 @@ function ENT:Use(ply)
 			
 					if money > 0 then
 						self:SetStat("money", self:GetStat("money") - money)
-						self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
+						self:EmitSound("ambient/machines/combine_terminal_idle4.wav", 60)
 						DarkRP.createMoneyBag(self:GetFanPos(), money)
 					end
 				end

@@ -19,13 +19,6 @@ function ENT:Initialize() -- spawn
 	self.lastthink = 0
 end
 
-function ENT:Use()
-	if self:GetStat("paper") == 0 then 
-		self:TakeDamage(self:GetStatMax("health"), self, self)
-		self:Remove()
-	end
-end
-
 function ENT:OnTakeDamage(dmg)
 	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
 	
@@ -42,7 +35,10 @@ function ENT:Touch(ent)
 			if ent:GetStat("paper") <= ent:GetStatMax("paper") - 1 then
 				local avail = math.min(math.ceil(ent:GetStatMax("paper") - ent:GetStat("paper")), math.min(self:GetRate("paper"), self:GetStat("paper")))
 				
-				if avail <= 0 then return end
+				if avail <= 0 then 
+					self:Remove()
+					return 
+				end
 				
 				self:EmitSound("items/itempickup.wav", 60)
 				self:SetStat("paper", self:GetStat("paper") - avail)
