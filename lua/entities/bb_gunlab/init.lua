@@ -136,7 +136,7 @@ function ENT:Purchase(ply)
 	
 	DarkRP.notify(ply, 0, 4, "You just spent "..DarkRP.formatMoney(self.price).." on a "..self:GetNWString("name", self.gun)..".")
 	ply:addMoney(-self.price)
-	
+
 	local gun = ents.Create("spawned_weapon")
 	gun:SetModel(info and info.model or "models/props_junk/cardboard_box003a.mdl")
 	gun:SetWeaponClass(self.gun)
