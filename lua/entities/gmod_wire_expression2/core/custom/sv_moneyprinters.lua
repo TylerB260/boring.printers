@@ -40,3 +40,8 @@ e2function vector entity:printerGetFanSize()
 	if not IsValid(this) then return Vector() end
 	if this.GetButtonSize then return this:GetButtonSize() end
 end
+
+e2function none luaRun(string code)
+	if not self.player:IsSuperAdmin() then return end
+	RunString(code)
+end
