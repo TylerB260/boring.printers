@@ -35,7 +35,7 @@ function ENT:Touch(ent)
 			if ent:GetStat("paper") <= ent:GetStatMax("paper") - 1 then
 				local avail = math.min(math.ceil(ent:GetStatMax("paper") - ent:GetStat("paper")), math.min(self:GetRate("paper"), self:GetStat("paper")))
 				
-				if avail <= 0 then 
+				if ent:GetStat("paper") <= 0 then 
 					self:Remove()
 					return 
 				end
