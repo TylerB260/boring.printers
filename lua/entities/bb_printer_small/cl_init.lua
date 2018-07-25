@@ -55,7 +55,7 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 		--self.MotorSound:SetSoundLevel(50)
 		self.FanSound:ChangePitch(100 + math.max(0, self:GetStat("heat") - 70) * 2)
 	else
-		self.CLEnts.fan:StopParticles()
+		if IsValid(self.CLEnts.fan) then self.CLEnts.fan:StopParticles() end
 		
 		if self.MotorSound:IsPlaying() then self.MotorSound:Stop() end
 		if self.FanSound:IsPlaying() then self.FanSound:Stop() end
