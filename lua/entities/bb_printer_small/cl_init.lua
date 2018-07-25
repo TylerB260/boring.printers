@@ -28,7 +28,7 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 		if self:GetStat("fan") == 0 then 
 			if CurTime() % 2 <= 0.1 then
 				self:StopParticles()
-				ParticleEffect("fire_jet_01", v:GetFanPos(), v:GetAngles(), self)
+				ParticleEffect("fire_jet_01", self:GetFanPos(), self:GetAngles(), self)
 			end
 			
 			if self.FanSound:IsPlaying() then self.FanSound:Stop() end
