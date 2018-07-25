@@ -47,6 +47,6 @@ ENT.PrinterInfo = { -- per second
 	},
 	
 	heat = {
-		max = 120
+		max = 130
 	}
 }
