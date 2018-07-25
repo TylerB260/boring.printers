@@ -56,4 +56,6 @@ function ENT:Think()
 		self:Remove()
 		return 
 	end
+	
+	self.BaseClass:Think()
 end
