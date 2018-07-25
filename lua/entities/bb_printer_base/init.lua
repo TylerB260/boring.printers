@@ -65,7 +65,7 @@ function ENT:BroadcastUpdate()
 	end
 end
 
-function ENT:Think() -- increase stuff based on tickrate!!
+function ENT:Think()
 	local hcol = (self:GetStat("health") / self:GetStatMax("health")) * 255
 	
 	self:SetColor(Color(255, hcol, hcol))
