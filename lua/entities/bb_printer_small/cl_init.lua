@@ -57,11 +57,10 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 	end
 	
 	 if IsValid(self.CLEnts.fan) then 
-		if IsValid(self.CLEnts.fan) then 
-			local c = self:GetStat("fan") and 255 or 0
-			self.CLEnts.fan:SetColor(Color(c, c, c)) 
-		end
+		local c = self:GetStat("fan") and 255 or 0
+		self.CLEnts.fan:SetColor(Color(c, c, c)) 
 	end
+	
 	if IsValid(self.CLEnts.button) and self.CLEnts.button:GetPos():Distance(self:GetButtonPos()) > 1 then
 		self:SpawnCLEnts()
 	end
