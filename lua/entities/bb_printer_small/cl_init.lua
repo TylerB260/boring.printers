@@ -8,10 +8,10 @@ function ENT:Initialize() -- spawn
 	self:SpawnCLEnts()
 			
 	self.MotorSound = CreateSound(self, self.Sounds.motor.path)
-	self.MotorSound:SetSoundLevel(60)
+	self.MotorSound:SetSoundLevel(50)
 	
-	self.FanSound = CreateSound(self, "boring.builders/server_fan.wav")
-	self.FanSound:SetSoundLevel(60)
+	self.FanSound = CreateSound(self, "boring.builders/server_fan.mp3")
+	self.FanSound:SetSoundLevel(50)
 end
 
 function ENT:Think() -- handle stuff, only run if player is nearby.
