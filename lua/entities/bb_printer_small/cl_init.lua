@@ -35,7 +35,7 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 				
 				if not self.lastfire then self.lastfire = 0 end
 				
-				if CurTime() - self.lastfire >= (1 - self:GetStat("speed")) then 
+				if CurTime() - self.lastfire >= 0.05 then 
 					self.CLEnts.fan:StopParticles()
 					ParticleEffect("fire_jet_01", self:GetFanPos(), self:GetAngles(), self.CLEnts.fan)
 					self.lastfire = CurTime()
