@@ -52,10 +52,16 @@ function ENT:Touch(ent)
 end
 
 function ENT:Think()
+	local hcol = (self:GetStat("health") / self:GetStatMax("health")) * 255
+	
+	self:SetColor(Color(255, hcol, hcol))
+	
+	if self:WaterLevel() >= 1 then
+		self:TakeDamage( 2, self, self )
+	end
+	
 	if self:GetStat("paper") <= 0 then 
 		self:Remove()
 		return 
 	end
-	
-	self.BaseClass:Think()
 end
