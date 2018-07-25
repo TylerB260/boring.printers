@@ -31,8 +31,6 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 			end
 			
 			if IsValid(self.CLEnts.fan) then 
-				self.CLEnts.fan:SetColor(Color(0, 0, 0)) 
-				
 				if not self.lastfire then self.lastfire = 0 end
 				
 				if CurTime() - self.lastfire >= 0.05 then 
@@ -43,14 +41,7 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 			end
 		end
 		
-		if self:GetStat("fan") == 1 and !self.FanSound:IsPlaying() then 
-			self.FanSound:Play() 
-			
-			if IsValid(self.CLEnts.fan) then 
-				self.CLEnts.fan:StopParticles()
-				self.CLEnts.fan:SetColor(Color(255, 255, 255)) 
-			end
-		end
+		if self:GetStat("fan") == 1 and !self.FanSound:IsPlaying() then self.FanSound:Play() end
 		
 		--self.MotorSound:SetSoundLevel(50)
 		self.FanSound:ChangePitch(100 + math.max(0, self:GetStat("heat") - 70) * 2)
@@ -65,6 +56,12 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 		end
 	end
 	
+	 if IsValid(self.CLEnts.fan) then 
+		if IsValid(self.CLEnts.fan) then 
+			local c = self:GetStat("fan") and 255 or 0
+			self.CLEnts.fan:SetColor(Color(c, c, c)) 
+		end
+	end
 	if IsValid(self.CLEnts.button) and self.CLEnts.button:GetPos():Distance(self:GetButtonPos()) > 1 then
 		self:SpawnCLEnts()
 	end
