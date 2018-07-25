@@ -26,12 +26,18 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 		if !self.MotorSound:IsPlaying() then self.MotorSound:PlayEx(1, self.Sounds.motor.pitch) end
 		
 		if self:GetStat("fan") == 0 then 
-			self:StopParticles()
-			ParticleEffect("fire_jet_01", self:GetFanPos(), self:GetAngles(), self)
+			if self.FanSound:IsPlaying() then 
+				self.FanSound:Stop() 
+			end
 			
-			if self.FanSound:IsPlaying() then self.FanSound:Stop() end
+			if IsValid(self.CLEnts.fan) then 
+				self.CLEnts.fan:SetColor(Color(0, 0, 0)) 
 			
-			if IsValid(self.CLEnts.fan) then self.CLEnts.fan:SetColor(Color(0, 0, 0)) end
+				if CurTime() % 2 <= 0.1 then
+					self:StopParticles()
+					ParticleEffectAttach("fire_jet_01", PATTACH_ABSORIGIN_FOLLOW, self.CLEnts.fan, 0)
+				end
+			end
 		end
 		
 		if self:GetStat("fan") == 1 and !self.FanSound:IsPlaying() then 
