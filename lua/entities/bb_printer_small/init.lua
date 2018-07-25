@@ -25,7 +25,6 @@ function ENT:Initialize() -- spawn
 	
 	timer.Simple(0, function()
 		if IsValid(self) then self:BroadcastUpdate() end
-		if IsValid(self.smoke) then self.smoke:Remove() end
 	end)
 end
 
@@ -129,28 +128,10 @@ function ENT:BreakFan()
 	effectdata:SetScale( 1 )
 	util.Effect( "Explosion", effectdata )
 	util.Effect( "cball_explode", effectdata )
-	
-	if IsValid(self.smoke) then self.smoke:Remove() end
-	self.smoke = ents.Create("env_steam")
-	self.smoke:SetPos(self:GetFanPos())
-	self.smoke:SetAngles(self:GetAngles())
-	self.smoke:SetKeyValue("SpreadSpeed", 12)
-	self.smoke:SetKeyValue("Speed", 96)
-	self.smoke:SetKeyValue("StartSize", 4)
-	self.smoke:SetKeyValue("EndSize", 8)
-	self.smoke:SetKeyValue("Rate", 50)
-	self.smoke:SetKeyValue("JetLength", 96)
-	self.smoke:SetKeyValue("renderamt", 255)
-	self.smoke:SetKeyValue("type", 0)
-	self.smoke:SetKeyValue("rendercolor","20 20 20")
-	self.smoke:Spawn()
-	self.smoke:SetParent(self)
-	self.smoke:Fire("turnon", "", 0)
 end
 
 function ENT:FixFan()
 	self:SetStat("fan", 1)
-	if self.smoke then self.smoke:Fire("turnoff", "", 0) end
 	self:EmitSound("ambient/machines/pneumatic_drill_"..math.random(1,4)..".wav", 80)
 end
 

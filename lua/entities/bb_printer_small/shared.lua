@@ -5,6 +5,9 @@ ENT.Author = "Tyler B."
 ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
+game.AddParticles("particles/fire_01.pcf")
+PrecacheParticleSystem("fire_jet_01")
+
 ENT.Sounds = {
 	motor = {path = "ambient/machines/combine_shield_loop3.wav", pitch = 125},
 	

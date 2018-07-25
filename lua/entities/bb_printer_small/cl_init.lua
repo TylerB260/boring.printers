@@ -25,7 +25,15 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 	if self:GetRunning() then
 		if !self.MotorSound:IsPlaying() then self.MotorSound:PlayEx(1, self.Sounds.motor.pitch) end
 		
-		if self:GetStat("fan") == 0 and self.FanSound:IsPlaying() then self.FanSound:Stop() end
+		if self:GetStat("fan") == 0 then 
+			if Curtime() % 2 <= 0.1 then
+				self:StopParticles()
+				ParticleEffect("fire_jet_01", v:GetFanPos(), v:GetAngles(), self)
+			end
+			
+			if self.FanSound:IsPlaying() then self.FanSound:Stop() end
+		end
+		
 		if self:GetStat("fan") == 1 and !self.FanSound:IsPlaying() then self.FanSound:Play() end
 		
 		--self.MotorSound:SetSoundLevel(50)
@@ -33,6 +41,10 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 	else
 		if self.MotorSound:IsPlaying() then self.MotorSound:Stop() end
 		if self.FanSound:IsPlaying() then self.FanSound:Stop() end
+		
+		if self:GetStat("fan") == 0 then
+			self:StopParticles()
+		end
 	end
 	
 	if IsValid(self.CLEnts.button) and self.CLEnts.button:GetPos():Distance(self:GetButtonPos()) > 1 then
