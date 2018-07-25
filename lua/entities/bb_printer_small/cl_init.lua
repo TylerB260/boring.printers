@@ -38,7 +38,6 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 				if CurTime() - self.lastfire >= 0.1 then 
 					self.CLEnts.fan:StopParticles()
 					ParticleEffect("fire_jet_01", self:GetFanPos(), self:GetAngles(), self.CLEnts.fan)
-					print("test, pls ignore.")
 					self.lastfire = CurTime()
 				end
 			end
@@ -56,6 +55,8 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 		--self.MotorSound:SetSoundLevel(50)
 		self.FanSound:ChangePitch(100 + math.max(0, self:GetStat("heat") - 70) * 2)
 	else
+		self.CLEnts.fan:StopParticles()
+		
 		if self.MotorSound:IsPlaying() then self.MotorSound:Stop() end
 		if self.FanSound:IsPlaying() then self.FanSound:Stop() end
 		
