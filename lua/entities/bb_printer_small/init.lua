@@ -33,7 +33,7 @@ function ENT:Use(ply)
 	
 	if ply:GetPos():Distance(self:GetPos()) < 92 and ply:GetEyeTrace().Entity == self and ply:KeyDown(IN_USE) then
 		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
-			if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
+			if self:GetStat("speed") == 1 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
 			self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
 			if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
 			
