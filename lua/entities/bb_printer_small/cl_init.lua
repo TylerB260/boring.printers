@@ -57,7 +57,7 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 	end
 	
 	 if IsValid(self.CLEnts.fan) then 
-		local c = self:GetStat("fan") and 255 or 0
+		local c = self:GetStat("fan") == 1 and 255 or 0
 		self.CLEnts.fan:SetColor(Color(c, c, c)) 
 	end
 	
