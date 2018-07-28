@@ -8,10 +8,10 @@ function ENT:Initialize() -- spawn
 		self:SpawnCLEnts()
 				
 		self.MotorSound = CreateSound(self, self.Sounds.motor.path)
-		self.MotorSound:SetSoundLevel(50)
+		self.MotorSound:SetSoundLevel(60)
 		
 		self.FanSound = CreateSound(self, "boring.builders/server_fan.mp3")
-		self.FanSound:SetSoundLevel(50)
+		self.FanSound:SetSoundLevel(60)
 	end
 
 	function ENT:SpawnCLEnts() -- spawn in fan, button, etc.
