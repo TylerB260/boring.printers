@@ -69,7 +69,7 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 		if self:GetStat("fan") == 1 and !self.FanSound:IsPlaying() then self.FanSound:Play() end
 		
 		--self.MotorSound:SetSoundLevel(50)
-		self.FanSound:ChangePitch(100 + math.max(0, self:GetStat("heat") - 70) * 2)
+		self.FanSound:ChangePitch(100 + math.max(0, self:GetStat("heat") - 70) * 2 + math.random(0, 1))
 	elseif self.PrinterInfo.type == "printer" then
 		if IsValid(self.CLEnts.fan) then self.CLEnts.fan:StopParticles() end
 		
