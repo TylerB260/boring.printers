@@ -1,5 +1,3 @@
-print("test, moneyprinter stuff")
-
 e2function normal entity:isPrinter()
 	if not IsValid(this) then return 0 end
 	
@@ -39,10 +37,4 @@ end
 e2function vector entity:printerGetFanSize()
 	if not IsValid(this) then return Vector() end
 	if this.GetButtonSize then return this:GetButtonSize() end
-end
-
-e2function normal luaRun(string code)
-	if not self.player:IsSuperAdmin() then return 0 end
-	RunString(code)
-	return 1
 end
