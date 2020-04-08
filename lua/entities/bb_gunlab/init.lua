@@ -1,6 +1,5 @@
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
-
 include("shared.lua")
 
 util.AddNetworkString("bb_gunlab")
@@ -19,10 +18,10 @@ net.Receive("bb_gunlab", function(_, ply)
 end)
 
 function ENT:Initialize() -- spawn
-	self.BaseClass:Initialze()
+	self.BaseClass.Initialize(self)
 	
-	self:SetGun(CustomShipments[0].entity)
-	self:SetPrice(CustomShipments[0].price / CustomShipments[0].amount)
+	self:SetGun(CustomShipments[1].entity)
+	self:SetPrice(self:CalculatePrice(CustomShipments[1]))
 	
 	self.lastuse = 0
 end
@@ -98,7 +97,7 @@ function ENT:Purchase(ply)
 	
 	if not IsValid(self:GetDealer()) then return end
 	
-	local profit = self.price - (info.price / info.amount)
+	local profit = self.price - self:CalculatePrice(info)
 		
 	if not self:GetDealer():canAfford(math.max(0, -profit)) then 
 		DarkRP.notify(ply, 0, 4, "You cannot buy this gun because the owner of this Gun Lab cannot afford it.")
@@ -107,7 +106,7 @@ function ENT:Purchase(ply)
 	end
 	
 	if info then
-		DarkRP.notify(self:GetDealer(), 0, 4, ply:Name().." just spent "..DarkRP.formatMoney(self.price).." on a "..self:GetNWString("name", self.gun)..", you profited "..DarkRP.formatMoney(profit)..".")
+		DarkRP.notify(self:GetDealer(), 0, 4, ply:Name().." just spent "..DarkRP.formatMoney(self.price).." on a "..self:GetNWString("name", self.gun)..", you "..(profit >= 0 and "profited" or "lost")..DarkRP.formatMoney(profit)..".")
 		self:GetDealer():addMoney(profit)
 	else
 		DarkRP.notify(self:GetDealer(), 0, 4, ply:Name().." just spent "..DarkRP.formatMoney(self.price).." on a "..self:GetNWString("name", self.gun)..".")

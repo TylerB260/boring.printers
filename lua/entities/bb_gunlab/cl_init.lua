@@ -26,10 +26,12 @@ net.Receive("bb_gunlab", function()
 	icons:Dock(TOP)
 	
 	for k, v in pairs(CustomShipments) do
+		local price = lab:CalculatePrice(v)
+		
 		local icon = vgui.Create("SpawnIcon", icons)
 		icon:SetSize(64, 64)
 		icon:SetModel(v.model)
-		icon:SetTooltip(v.category.." / "..v.name)
+		icon:SetTooltip(v.category.." / "..v.name.."\n\nCosts you $"..price.." to purchase.")
 		icons:AddItem(icon)
 		
 		icons.Paint = function(_, w, h)
@@ -40,7 +42,7 @@ net.Receive("bb_gunlab", function()
 		icon.DoClick = function()
 			surface.PlaySound("garrysmod/content_downloaded.wav")
 			gun = v.entity
-			price = v.pricesep
+			price = price
 			price2:SetValue(price)
 		end
 		
@@ -88,13 +90,6 @@ net.Receive("bb_gunlab", function()
 	end
 end)
 
-
-function ENT:Initialize() -- spawn
-	self:SetModel("models/props_c17/TrapPropeller_Engine.mdl")
-
-	self.PrinterStats = {}
-end
-
 function ENT:GetDistance()
 	if not LocalPlayer() then return 384 end
 	
@@ -138,8 +133,8 @@ function ENT:Draw()
 		if self:GetDistance() < 512 then
 			draw.DrawText(name, "TargetID", 25, 6, (IsValid(self:GetDealer()) and team.GetColor(self:GetDealer():Team()) or Color(0,0,0)), TEXT_ALIGN_CENTER)   
 			draw.DrawText("Gun Lab", "TargetID", 25, 20, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			draw.DrawText(self:GetNWString("name", ""), "TargetIDSmall", 25, 40, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			draw.DrawText(DarkRP.formatMoney(self:GetNWInt("price", 0)), "TargetIDSmall", 25, 52, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
+			draw.DrawText(self:GetNWString("name", ""), "TargetID", 25, 40, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
+			draw.DrawText(DarkRP.formatMoney(self:GetNWInt("price", 0)).." per gun.", "TargetIDSmall", 25, 55, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 		end
 	cam.End3D2D()
 end
