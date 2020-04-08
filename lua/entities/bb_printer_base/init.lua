@@ -101,7 +101,7 @@ end
 -- HEALTH --
 
 function ENT:OnTakeDamage(dmg)
-	if dmg:GetDamagePosition():Distance(self:GetFanPos()) < self:GetFanSize() and self:GetStat("fan") == 1 then
+	if self.PrinterInfo.type == "printer" and dmg:GetDamagePosition():Distance(self:GetFanPos()) < self:GetFanSize() and self:GetStat("fan") == 1 then
 		self:BreakFan()
 	end
 	
