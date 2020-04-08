@@ -1,34 +1,10 @@
 AddCSLuaFile("shared.lua")
 AddCSLuaFile("cl_init.lua")
-
 include("shared.lua")
 
-function ENT:Initialize() -- spawn
-	self:SetModel("models/props_lab/jar01a.mdl")
-	self:PhysicsInit(SOLID_VPHYSICS)
-	self:SetSolid(SOLID_VPHYSICS)
-	self:SetMoveType(MOVETYPE_VPHYSICS)
-	self:SetUseType(SIMPLE_USE)
-	self:PhysWake()
-	self:SetTrigger(true)
-	
-	self.PrinterStats = {}
-	
-	self:SetStat("health", self:GetStatMax("health"))
-	self:SetStat("ink", self:GetStatMax("ink"))
-	self.lastthink = 0
-end
-
-function ENT:OnTakeDamage(dmg)
-	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
-	sound.Play("physics/metal/metal_barrel_impact_hard"..math.random(1,7)..".wav", self:GetPos(), 80)
-		
-	if self:GetStat("health") <= 0 then
-		self:Remove()
-	end
-end
-
 function ENT:Touch(ent)
+	if not self.lastthink then self.lastthink = 0 end
+	
 	if ent.PrinterStats and ent.PrinterStats.ink and (CurTime() - self.lastthink == 0 or CurTime() - self.lastthink >= 0.1) then
 		if self:GetPos().z > ent:GetPos().z then
 			-- print(ent:GetStat("ink").." / "..self:GetRate("ink"))
@@ -48,20 +24,5 @@ function ENT:Touch(ent)
 		
 		self.lastthink = CurTime()
 		self:PhysWake()
-	end
-end
-
-function ENT:Think()
-		local hcol = (self:GetStat("health") / self:GetStatMax("health")) * 255
-	
-	self:SetColor(Color(255, hcol, hcol))
-	
-	if self:WaterLevel() >= 1 then
-		self:TakeDamage( 2, self, self )
-	end
-	
-	if self:GetStat("ink") <= 0 then 
-		self:Remove()
-		return 
 	end
 end

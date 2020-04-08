@@ -5,9 +5,6 @@ ENT.Author = "Tyler B."
 ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
-game.AddParticles("particles/fire_01.pcf")
-PrecacheParticleSystem("fire_jet_01")
-
 ENT.Sounds = {
 	motor = {path = "ambient/machines/combine_shield_loop3.wav", pitch = 125},
 	
@@ -18,7 +15,11 @@ ENT.Sounds = {
 	use = {path = "buttons/blip1.wav", pitch = 100}
 }
 
+ENT.Model = "models/props_c17/consolebox03a.mdl"
+
 ENT.PrinterInfo = { -- per second
+	type = "printer",
+	
 	button = {
 		pos = Vector(9.25, 4.65, 4.5),
 		size = 3
@@ -53,17 +54,3 @@ ENT.PrinterInfo = { -- per second
 		max = 120
 	}
 }
-
-function ENT:GetButtonPos() return self:LocalToWorld(self.PrinterInfo.button.pos) end
-function ENT:GetButtonSize() return self.PrinterInfo.button.size end
-function ENT:GetFanPos() return self:LocalToWorld(self.PrinterInfo.fan.pos) end
-function ENT:GetFanSize() return self.PrinterInfo.fan.size end
-
-function ENT:GetRunning()
-	if self:GetStat("speed") == 0 then return false end
-	if self:GetStat("paper") < self:GetRate("paper") then return false end
-	if self:GetStat("ink") < self:GetRate("ink") then return false end
-	if self:GetStat("money") >= self:GetStatMax("money") then return false end
-
-	return true
-end

@@ -1,5 +1,5 @@
 ENT.Type = "anim"
-ENT.Base = "bb_printer_small"
+ENT.Base = "bb_printer_base"
 ENT.PrintName = "Printer - Large"
 ENT.Author = "Tyler B."
 ENT.Spawnable = true
@@ -14,6 +14,8 @@ ENT.Sounds = {
 	alert = {path = "npc/attack_helicopter/aheli_damaged_alarm1.wav", pitch = 80},
 	use = {path = "buttons/blip1.wav", pitch = 75}
 }
+
+ENT.Model = "models/props/CS_militia/furnace01.mdl"
 
 ENT.PrinterInfo = { -- per second
 	button = {

@@ -1,11 +1,6 @@
 include("shared.lua")
 
-function ENT:Initialize() -- spawn
-	self:SetModel("models/props_lab/jar01a.mdl")
-	self.PrinterStats = {}
-end
-
-	function ENT:Draw()
+function ENT:Draw()
 	self:DrawModel()
 	
 	local pos = self:LocalToWorld(Vector(4.7, -4, 5));

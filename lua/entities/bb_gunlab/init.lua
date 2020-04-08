@@ -19,18 +19,10 @@ net.Receive("bb_gunlab", function(_, ply)
 end)
 
 function ENT:Initialize() -- spawn
-	self:SetModel("models/props_c17/TrapPropeller_Engine.mdl")
-	self:PhysicsInit(SOLID_VPHYSICS)
-	self:SetSolid(SOLID_VPHYSICS)
-	self:SetMoveType(MOVETYPE_VPHYSICS)
-	self:SetUseType(SIMPLE_USE)
-	self:PhysWake()
+	self.BaseClass:Initialze()
 	
-	self.PrinterStats = {}
-	self:SetStat("health", self:GetStatMax("health"))
-	
-	self:SetGun("weapon_p228")
-	self:SetPrice(500)
+	self:SetGun(CustomShipments[0].entity)
+	self:SetPrice(CustomShipments[0].price / CustomShipments[0].amount)
 	
 	self.lastuse = 0
 end
@@ -84,18 +76,6 @@ function ENT:SetPrice(price)
 	
 	self.price = price
 	self:SetNWInt("price", price)
-end
-
-function ENT:FindNearby()
-	local nearby = {}
-	
-	for k, v in pairs(player.GetAll()) do
-		if v:GetPos():Distance(self:GetPos()) <= 512 then
-			table.insert(nearby, v)
-		end
-	end
-	
-	return nearby
 end
 
 function ENT:Purchase(ply)
@@ -181,41 +161,4 @@ function ENT:Use(ply)
 			end
 		end
 	end
-end
-
--- HEALTH --
-
-function ENT:OnTakeDamage(dmg)
-	self:SetStat("health", self:GetStat("health") - (dmg:GetDamage() or 0))
-	
-	if self:GetStat("health") <= 0 then
-		self:Explode()
-	end
-	
-	if self:GetStat("health") <= 10 and not self:IsOnFire() then
-		self:Ignite(300)
-	end
-end
-
-function ENT:Explode()
-	local effectdata = EffectData()
-	effectdata:SetStart(self:GetPos())
-	effectdata:SetOrigin(self:GetPos())
-	effectdata:SetScale(1)
-	
-	for i = 1, 5 do util.Effect("Explosion", effectdata) end
-	for i = 1, 5 do util.Effect("cball_explode", effectdata) end
-	
-	for k, v in pairs(ents.FindInSphere(self:GetPos(), 64)) do
-		if IsValid(v) and not v:IsWeapon() and v:GetClass() != "predicted_viewmodel" and not v:IsOnFire() then
-			v:Ignite(math.random(30,60), 32)
-			if IsValid(v:GetPhysicsObject()) then
-				v:GetPhysicsObject():ApplyForceCenter((v:GetPos() - self:GetPos()) * v:GetPhysicsObject():GetMass() * 32) 
-			end
-		end
-	end
-	
-	--util.BlastDamage(self, self, self:GetPos(), 256, 100)
-	
-	self:Remove()
 end

@@ -5,7 +5,11 @@ ENT.Author = "Tyler B."
 ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
+ENT.Model = "models/props_c17/oildrum001.mdl"
+
 ENT.PrinterInfo = { -- per second
+	type = "item",
+	
 	health = {
 		max = 100,
 		rate = 0.1 -- regen

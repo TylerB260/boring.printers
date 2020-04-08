@@ -1,71 +1,5 @@
 include("shared.lua")
 
-function ENT:Initialize() -- spawn
-	self:SetModel("models/props_c17/consolebox03a.mdl")
-	
-	self.PrinterStats = {}
-	
-	self:SpawnCLEnts()
-			
-	self.MotorSound = CreateSound(self, self.Sounds.motor.path)
-	self.MotorSound:SetSoundLevel(60)
-	
-	self.FanSound = CreateSound(self, "boring.builders/server_fan.mp3")
-	self.FanSound:SetSoundLevel(60)
-end
-
-function ENT:Think() -- handle stuff, only run if player is nearby.
-	if self:GetDistance() > 384 then 
-		if self.MotorSound:IsPlaying() then self.MotorSound:Stop() end
-		if self.FanSound:IsPlaying() then self.FanSound:Stop() end
-	
-		return 
-	end
-	
-	if self:GetRunning() then
-		if !self.MotorSound:IsPlaying() then self.MotorSound:PlayEx(1, self.Sounds.motor.pitch) end
-		
-		if self:GetStat("fan") == 0 then 
-			if self.FanSound:IsPlaying() then 
-				self.FanSound:Stop() 
-			end
-			
-			if IsValid(self.CLEnts.fan) then 
-				if not self.lastfire then self.lastfire = 0 end
-				
-				if CurTime() - self.lastfire >= 0.05 then 
-					self.CLEnts.fan:StopParticles()
-					ParticleEffect("fire_jet_01", self:GetFanPos(), self:GetAngles(), self.CLEnts.fan)
-					self.lastfire = CurTime()
-				end
-			end
-		end
-		
-		if self:GetStat("fan") == 1 and !self.FanSound:IsPlaying() then self.FanSound:Play() end
-		
-		--self.MotorSound:SetSoundLevel(50)
-		self.FanSound:ChangePitch(100 + math.max(0, self:GetStat("heat") - 70) * 2)
-	else
-		if IsValid(self.CLEnts.fan) then self.CLEnts.fan:StopParticles() end
-		
-		if self.MotorSound:IsPlaying() then self.MotorSound:Stop() end
-		if self.FanSound:IsPlaying() then self.FanSound:Stop() end
-		
-		if self:GetStat("fan") == 0 then
-			self:StopParticles()
-		end
-	end
-	
-	 if IsValid(self.CLEnts.fan) then 
-		local c = self:GetStat("fan") == 1 and 255 or 0
-		self.CLEnts.fan:SetColor(Color(c, c, c)) 
-	end
-	
-	if IsValid(self.CLEnts.button) and self.CLEnts.button:GetPos():Distance(self:GetButtonPos()) > 1 then
-		self:SpawnCLEnts()
-	end
-end
-
 function ENT:SpawnCLEnts() -- spawn in fan, button, etc.
 	self.CLEnts = self.CLEnts or {}
 	self:RemoveCLEnts()
@@ -89,27 +23,6 @@ function ENT:SpawnCLEnts() -- spawn in fan, button, etc.
 	self.CLEnts.button = button
 	
 	self.CLEntsSpawned = true
-end
-
-function ENT:RemoveCLEnts() -- remove clientside ents, saves ents and FPS.
-	if not self.CLEnts then return end
-	
-	if IsValid(self.CLEnts.fan) then self.CLEnts.fan:Remove() end
-	if IsValid(self.CLEnts.button) then self.CLEnts.button:Remove() end
-	
-	self.CLEntsSpawned = false
-end
-
-
-function ENT:OnRemove() -- deletion
-	self:RemoveCLEnts()
-	
-	if self.MotorSound then 
-		self.MotorSound:Stop() 
-	end
-	if self.FanSound then 
-		self.FanSound:Stop() 
-	end
 end
 
 function ENT:DrawHelp(w, h)

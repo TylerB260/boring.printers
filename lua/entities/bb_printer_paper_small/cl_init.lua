@@ -1,10 +1,5 @@
 include("shared.lua")
 
-function ENT:Initialize() -- spawn
-	self:SetModel("models/props/cs_office/file_box.mdl")
-	self.PrinterStats = {}
-end
-
 function ENT:Draw()
 	self:DrawModel()
 	

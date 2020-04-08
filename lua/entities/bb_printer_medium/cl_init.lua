@@ -1,19 +1,5 @@
 include("shared.lua")
 
-function ENT:Initialize() -- spawn
-	self:SetModel("models/props_c17/consolebox01a.mdl")
-	
-	self.PrinterStats = {}
-	
-	self:SpawnCLEnts()
-			
-	self.MotorSound = CreateSound(self, self.Sounds.motor.path)
-	self.MotorSound:SetSoundLevel(60)
-	
-	self.FanSound = CreateSound(self, "boring.builders/server_fan.mp3")
-	self.FanSound:SetSoundLevel(60)
-end
-
 function ENT:SpawnCLEnts() -- spawn in fan, button, etc.
 	self.CLEnts = self.CLEnts or {}
 	self:RemoveCLEnts()

@@ -1,10 +1,5 @@
 include("shared.lua")
 
-function ENT:Initialize() -- spawn
-	self:SetModel("models/props_c17/oildrum001.mdl")
-	self.PrinterStats = {}
-end
-
 function ENT:Draw()
 	self:DrawModel()
 	

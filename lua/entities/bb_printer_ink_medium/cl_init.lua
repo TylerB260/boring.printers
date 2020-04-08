@@ -1,10 +1,5 @@
 include("shared.lua")
 
-function ENT:Initialize() -- spawn
-	self:SetModel("models/props_junk/metalgascan.mdl")
-	self.PrinterStats = {}
-end
-
 function ENT:Draw()
 	self:DrawModel()
 	
