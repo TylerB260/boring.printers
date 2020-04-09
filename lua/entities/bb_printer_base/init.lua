@@ -50,52 +50,56 @@ end
 
 function ENT:Use(ply)
 	if not ply or not IsValid(ply) then return end
-	if not self.PrinterInfo.button then return end
+	local pos = self:LocalToWorld(self:OBBCenter())
 	
-	if ply:GetPos():Distance(self:GetPos()) < 92 and ply:GetEyeTrace().Entity == self and ply:KeyDown(IN_USE) then
-		if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
-			if self:GetStat("speed") == 1 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
-			self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
-			if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
-			
-			self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
-		else
-			local money = math.floor(self:GetStat("money"))
-			
-			if money > 0 then
-				ply:addMoney(money)
-				self:SetStat("money", self:GetStat("money") - money)
-				DarkRP.notify(ply, 0, 4, DarkRP.getPhrase("found_money", DarkRP.formatMoney(money)))
-				self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
-			end
-		end
-	else -- it's a user
-		for k, v in pairs(ents.FindByClass("gmod_wire_user")) do -- find all users
-			if v.Inputs and v.Inputs.Fire and v.Inputs.Fire.Value > 0 then -- is it firing?
-				local trace = util.TraceLine( {
-					start = v:GetPos(),
-					endpos = v:GetPos() + (v:GetUp() * v:GetBeamLength()),
-					filter = {v},
-				})
+	if self.PrinterInfo.type == "printer" and self.PrinterInfo.button then
+		if ply:GetPos():Distance(pos) < 92 and ply:GetEyeTrace().Entity == self and ply:KeyDown(IN_USE) then
+			if ply:GetEyeTrace().HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then
+				if self:GetStat("speed") == 1 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
+				self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
+				if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
 				
-				if trace.HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then -- GOTCHA!!
-					if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
-					self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
-					if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
+				self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
+			else
+				local money = math.floor(self:GetStat("money"))
+				
+				if money > 0 then
+					ply:addMoney(money)
+					self:SetStat("money", self:GetStat("money") - money)
+					DarkRP.notify(ply, 0, 4, DarkRP.getPhrase("found_money", DarkRP.formatMoney(money)))
+					self:EmitSound("ambient/levels/labs/coinslot1.wav", 60)
+				end
+			end
+		else -- it's a user
+			for k, v in pairs(ents.FindByClass("gmod_wire_user")) do -- find all users
+				if v.Inputs and v.Inputs.Fire and v.Inputs.Fire.Value > 0 then -- is it firing?
+					local trace = util.TraceLine( {
+						start = v:GetPos(),
+						endpos = v:GetPos() + (v:GetUp() * v:GetBeamLength()),
+						filter = {v},
+					})
 					
-					self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
-				elseif trace.Entity == self then -- gotcha, but no money for you!
-					local money = math.floor(self:GetStat("money"))
-			
-					if money > 0 then
-						self:SetStat("money", self:GetStat("money") - money)
-						self:EmitSound("ambient/machines/combine_terminal_idle4.wav", 60)
-						DarkRP.createMoneyBag(self:GetFanPos(), money)
+					if trace.HitPos:Distance(self:GetButtonPos()) <= self:GetButtonSize() then -- GOTCHA!!
+						if self:GetStat("speed") == 0 and self:GetRunning() then self:EmitSound(self.Sounds.stop.path, 80, self.Sounds.stop.pitch) end
+						self:SetStat("speed", (self:GetStat("speed") >= 1 and 0 or self:GetStat("speed") + 0.1))
+						if self:GetStat("speed") == 0.1 and self:GetRunning() then self:EmitSound(self.Sounds.start.path, 80, self.Sounds.start.pitch) end
+						
+						self:EmitSound(self.Sounds.use.path, 60, self.Sounds.use.pitch + (50 * self:GetStat("speed")))
+					elseif trace.Entity == self then -- gotcha, but no money for you!
+						local money = math.floor(self:GetStat("money"))
+				
+						if money > 0 then
+							self:SetStat("money", self:GetStat("money") - money)
+							self:EmitSound("ambient/machines/combine_terminal_idle4.wav", 60)
+							DarkRP.createMoneyBag(self:GetFanPos(), money)
+						end
 					end
 				end
 			end
 		end
-    end
+	elseif not self:IsPlayerHolding() and ply:GetPos():Distance(pos) <= 96 and ply:KeyDown(IN_USE) then
+		ply:PickupObject(self)
+	end
 end
 
 -- HEALTH --
@@ -187,11 +191,11 @@ function ENT:Think() -- increase stuff based on tickrate!!
 		
 		--[[
 			explosive calculation is as follows:
-			100,000 at speed 0.1
-			10,000 less for every click 
+			50,000 at speed 0.1
+			5,000 less for every click 
 		]]--
 		
-		self.Likelyhood = 110000 - (mul * 100000)
+		self.Likelyhood = 55000 - (mul * 50000)
 		
 		local boom = math.floor(math.random(1, self.Likelyhood))
 		if boom == 1 and self:GetStat("fan") == 1 then self:BreakFan() end
@@ -241,7 +245,7 @@ function ENT:Think() -- increase stuff based on tickrate!!
 	if self:WaterLevel() >= 1 then
 		local effectdata = EffectData()
 		effectdata:SetStart(self:GetPos())
-		effectdata:SetOrigin(self:GetFanPos())
+		effectdata:SetOrigin(self.PrinterInfo.type == "printer" and self:GetFanPos() or self:GetPos())
 		effectdata:SetScale(1)
 		effectdata:SetMagnitude(1)
 		effectdata:SetScale(3)

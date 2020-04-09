@@ -11,8 +11,8 @@ ENT.PrinterInfo = { -- per second
 	type = "item",
 	
 	health = {
-		max = 100,
-		rate = 0.1 -- regen
+		max = 50,
+		rate = 0.5 -- regen
 	},
 	
 	paper = {

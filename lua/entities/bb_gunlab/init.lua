@@ -106,7 +106,7 @@ function ENT:Purchase(ply)
 	end
 	
 	if info then
-		DarkRP.notify(self:GetDealer(), 0, 4, ply:Name().." just spent "..DarkRP.formatMoney(self.price).." on a "..self:GetNWString("name", self.gun)..", you "..(profit >= 0 and "profited" or "lost")..DarkRP.formatMoney(profit)..".")
+		DarkRP.notify(self:GetDealer(), 0, 4, ply:Name().." just spent "..DarkRP.formatMoney(self.price).." on a "..self:GetNWString("name", self.gun)..", you "..(profit >= 0 and "profited" or "lost").." "..DarkRP.formatMoney(profit)..".")
 		self:GetDealer():addMoney(profit)
 	else
 		DarkRP.notify(self:GetDealer(), 0, 4, ply:Name().." just spent "..DarkRP.formatMoney(self.price).." on a "..self:GetNWString("name", self.gun)..".")

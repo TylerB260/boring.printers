@@ -64,6 +64,8 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 					self.lastfire = CurTime()
 				end
 			end
+		else
+			self.CLEnts.fan:StopParticles()
 		end
 		
 		if self:GetStat("fan") == 1 and !self.FanSound:IsPlaying() then self.FanSound:Play() end
@@ -84,10 +86,6 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 				self.moneybeep = CurTime()
 				self:EmitSound(self.Sounds.full.path, 60, self.Sounds.full.pitch)
 			end
-		end
-		
-		if self:GetStat("fan") == 0 then
-			self:StopParticles()
 		end
 	end
 	
