@@ -169,7 +169,7 @@ function ENT:BroadcastUpdate()
 	end
 end
 
-local delay = 0.5 -- in seconds
+local delay = 0.25 -- in seconds
 
 function ENT:Think() -- increase stuff based on tickrate!!
 	local mul = self:GetStat("speed")
