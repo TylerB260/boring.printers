@@ -169,38 +169,24 @@ function ENT:BroadcastUpdate()
 	end
 end
 
+local delay = 0.1 -- in seconds
+
 function ENT:Think() -- increase stuff based on tickrate!!
-	local mul = 0
+	local mul = self:GetStat("speed")
 	
 	if self:GetRunning() then
-		if self:GetStat("speed") <= 0.5 then mul = self:GetStat("speed") * 2 end -- 0 to 0.5 is 0 to 1 in mul
-		if self:GetStat("speed") > 0.5 then mul = 1 + self:GetStat("speed") end -- 0.6 to 1 is 1.1 to 1.5 in mul, less return.
-		
 		-- eat paper
-		self:SetStat("paper", self:GetStat("paper") - (self:GetRate("paper") * 0.1 * mul))
+		self:SetStat("paper", self:GetStat("paper") - (self:GetRate("paper") * delay * mul))
 		
 		-- eat ink
-		self:SetStat("ink", self:GetStat("ink") - (self:GetRate("ink") * 0.1 * mul))
+		self:SetStat("ink", self:GetStat("ink") - (self:GetRate("ink") * delay * mul))
 		
 		-- increment money
-		self:SetStat("money", self:GetStat("money") + (self:GetRate("money") * 0.1 * mul))
+		self:SetStat("money", self:GetStat("money") + (self:GetRate("money") * delay * mul))
 		
 		if self:GetStat("heat") >= self:GetStatMax("heat") and not self:IsOnFire() then
-			self:Ignite(15)
+			self:Ignite(5) -- it will be reignited if the heat is not handled quickly.
 		end
-		
-		local boom = 0
-		
-		if self:GetStat("heat") < self:GetStatMax("heat") * 0.75 then
-			boom = 50000 - ((self:GetStat("heat") - 22) / ((self:GetStatMax("heat") - 22) * 0.75) * 30000)
-		else
-			boom = 10000 - math.min(9000, (((self:GetStat("heat") - (self:GetStatMax("heat") * 0.75)) / (self:GetStatMax("heat") * 0.25)) * 9000))
-		end
-		
-		
-		boom = math.random(1, math.floor(boom))
-		
-		if boom == 1 and self:GetStat("fan") == 1 then self:BreakFan() end
 	end
 	
 	self:NextThink(0) -- do not manually think! let the timer call it instead.
@@ -208,18 +194,31 @@ function ENT:Think() -- increase stuff based on tickrate!!
 	-- handle heat
 	
 	if self.PrinterInfo.type == "printer" then
-		local target = 22
-		local speed = 128 -- self:GetRunning() and 128 or 64
+		local target = 0
 		local heat = self:GetStat("heat")
+		local maxheat = self:GetStatMax("heat")
+		local ambient = 22
+		local range = (maxheat - ambient) * 0.9 -- 0.9 for "breathing room" at max speed
 		
-		if self:GetRunning() and self:GetStat("fan") == 0 then target = self:GetStatMax("heat") * 1.5 end
-		if self:GetRunning() and self:GetStat("fan") == 1 then target = 22 + (mul * 48) end
+		if self:GetRunning() and self:GetStat("fan") == 0 then target = maxheat * 1.25 end -- enough to make it boom, but not too quickly.
+		if self:GetRunning() and self:GetStat("fan") == 1 then target = ambient + (range * mul) end
 		
-		if heat < target then heat = heat + (target - heat) / speed end
-		if heat > target then heat = heat - (heat - target) / speed end
+		if heat < target then heat = heat + (target - heat) / 64 end
+		if heat > target then heat = heat - (heat - target) / 64 end
 		
 		self:SetStat("heat", heat)
 
+		--[[
+			explosive calculation is as follows:
+			100,000 at speed 0.1
+			10,000 less for every click 
+		]]--
+		
+		self.Likelyhood = 110000 - (mul * 100000)
+		
+		local boom = math.floor(math.random(1, self.Likelyhood))
+		if boom == 1 and self:GetStat("fan") == 1 then self:BreakFan() end
+		
 		if self:GetStat("fan") == 0 and math.random(1, 15) == 1 then
 			local effectdata = EffectData()
 			effectdata:SetStart(self:GetFanPos())
@@ -275,7 +274,7 @@ function ENT:FixFan()
 	self:EmitSound("ambient/machines/pneumatic_drill_"..math.random(1,4)..".wav", 80)
 end
 
-timer.Create("bb_printer_think", 0.1, 0, function()
+timer.Create("bb_printer_think", delay, 0, function()
 	for _, e in pairs(ents.GetAll()) do
 		if e.PrinterStats then 
 			e:Think()
