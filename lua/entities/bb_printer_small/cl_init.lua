@@ -25,65 +25,6 @@ function ENT:SpawnCLEnts() -- spawn in fan, button, etc.
 	self.CLEntsSpawned = true
 end
 
-function ENT:DrawHelp(w, h)
-	local offender = false
-	
-	if self:GetStat("speed") == 0 then offender = "off" end -- is it on?
-	if self:GetStat("paper") < self:GetRate("paper") then offender = "paper" end -- out of paper
-	if self:GetStat("ink") < self:GetRate("ink") then  -- out of ink
-		if offender == "paper" then 
-			offender = "both"
-		else
-			offender = "ink" 
-		end
-	end
-	if self:GetStat("money") >= self:GetStatMax("money") then offender = "money" end -- full of money
-	
-	-- run these checks regardless of power state
-	if self:GetStat("fan") == 0 then offender = "fan" end -- fans busted!
-	
-	if offender then
-		surface.SetDrawColor(Color(0, 0, 0, 250)) -- overlay
-		surface.DrawRect(0, 0, w, h)    
-		
-		if offender == "off" then
-			self:drawIcon("icon16/cross.png", w / 2, (h / 2) - 16, 24, 24)
-			draw.DrawText("Printer is off.", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			draw.DrawText("Turn on with the slider.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-		end
-		
-		if offender == "both" then
-			self:drawIcon("icon16/cart.png", w / 2, (h / 2) - 16, 24, 24)
-			draw.DrawText("Out of Supplies!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			draw.DrawText("Buy some paper and ink.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-		end
-		
-		if offender == "paper" then
-			self:drawIcon("icon16/page_copy.png", w / 2, (h / 2) - 16, 24, 24)
-			draw.DrawText("Out of Paper!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			draw.DrawText("Buy some paper.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-		end
-		
-		if offender == "ink" then
-			self:drawIcon("icon16/water.png", w / 2, (h / 2) - 16, 24, 24)
-			draw.DrawText("Out of Ink!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			draw.DrawText("Buy some ink.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-		end
-		
-		if offender == "money" then
-			self:drawIcon("icon16/money.png", w / 2, (h / 2) - 16, 24, 24)
-			draw.DrawText("Storage Full!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			draw.DrawText("Money storage is full.", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)    
-		end
-		
-		if offender == "fan" then
-			self:drawIcon("icon16/fire.png", w / 2, (h / 2) - 16, 24, 24)
-			draw.DrawText("Damaged Fan!", "TargetID", w / 2, h / 2, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			draw.DrawText("Buy a replacement fan!", "TargetIDSmall", w / 2, (h / 2) + 16, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-		end
-	end
-end
-
 function ENT:Draw()
 	self:DrawModel()
 	
@@ -110,7 +51,7 @@ function ENT:Draw()
 			draw.DrawText("Paper", "TargetIDSmall", 25, 6, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(math.floor(self:GetStat("paper")), "TargetID", 25, 41, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("pages", "TargetIDSmall", 25, 53, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			self:drawIcon("icon16/page_copy.png", 26, 31, 16, 16)
+			self:drawIcon("icon16/page_copy.png", 26, 32, 16, 16)
 			
 			-- ink --
 			self:drawRect(52, 2, 48, 69)
@@ -119,7 +60,7 @@ function ENT:Draw()
 			draw.DrawText("Ink", "TargetIDSmall", 75, 6, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(math.floor(self:GetStat("ink")), "TargetID", 75, 41, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText("mL", "TargetIDSmall", 75, 53, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			self:drawIcon("icon16/water.png", 76, 30, 16, 16)
+			self:drawIcon("icon16/water.png", 76, 32, 16, 16)
 			
 			-- cash --
 			self:drawRect(102, 2, 48, 69)
@@ -129,13 +70,15 @@ function ENT:Draw()
 			
 			draw.DrawText("Cash", "TargetIDSmall", 125, 6, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(pretty, "TargetID", 125, 47, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
-			self:drawIcon("icon16/money.png", 126, 31, 16, 16)
+			self:drawIcon("icon16/money.png", 126, 32, 16, 16)
 			
 			-- temp --
 			self:drawRect(152, 2, 34, 69)
 			self:drawBar(154, 4, 30, 66, (self:GetStat("heat") / self:GetStatMax("heat")) * 100, "greenred")
 			
+			draw.DrawText("Tmp", "TargetIDSmall", 169, 6, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
 			draw.DrawText(math.floor(self:GetStat("heat")).."°", "TargetIDSmall", 169, 47, Color(255, 255, 255, 255), TEXT_ALIGN_CENTER)   
+			self:drawIcon("icon16/fire.png", 169, 32, 16, 16)
 			
 			self:DrawHelp(200, 74)
 		end

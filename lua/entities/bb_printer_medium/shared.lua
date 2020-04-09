@@ -8,10 +8,11 @@ ENT.AdminSpawnable = true
 ENT.Sounds = {
 	motor = {path = "ambient/machines/power_transformer_loop_2.wav", pitch = 90},
 	
-	start = {path = "ambient/machines/thumper_startup1.wav", pitch = 100},
-	stop = {path = "ambient/machines/thumper_shutdown1.wav", pitch = 100},
+	start = {path = "npc/roller/mine/rmine_reprogram.wav", pitch = 100},
+	stop = {path = "npc/roller/code2.wav", pitch = 100},
 	
-	alert = {path = "npc/attack_helicopter/aheli_damaged_alarm1.wav", pitch = 100},
+	alert = {path = "npc/roller/mine/rmine_shockvehicle2.wav", pitch = 100},
+	full = {path = "npc/roller/mine/rmine_blip1.wav", pitch = 100},
 	use = {path = "buttons/blip1.wav", pitch = 75}
 }
 
@@ -35,17 +36,17 @@ ENT.PrinterInfo = { -- per second
 	
 	paper = {
 		max = 2000,
-		rate = 1
+		rate = 2
 	},
 	
 	ink = {
 		max = 4000,
-		rate = 2
+		rate = 4
 	},
 	
 	money = {
-		max = 1000,
-		rate = 2
+		max = 2000,
+		rate = 4
 	},
 	
 	heat = {

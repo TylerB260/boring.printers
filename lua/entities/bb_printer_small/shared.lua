@@ -6,13 +6,14 @@ ENT.Spawnable = true
 ENT.AdminSpawnable = true
 
 ENT.Sounds = {
-	motor = {path = "ambient/machines/combine_shield_loop3.wav", pitch = 125},
+	motor = {path = "npc/scanner/combat_scan_loop2.wav", pitch = 100},
 	
-	start = {path = "ambient/machines/thumper_startup1.wav", pitch = 125},
-	stop = {path = "ambient/machines/thumper_shutdown1.wav", pitch = 125},
+	start = {path = "npc/scanner/combat_scan2.wav", pitch = 100},
+	stop = {path = "npc/scanner/combat_scan3.wav", pitch = 100},
 	
-	alert = {path = "npc/attack_helicopter/aheli_damaged_alarm1.wav", pitch = 125},
-	use = {path = "buttons/blip1.wav", pitch = 100}
+	alert = {path = "npc/scanner/scanner_explode_crash2.wav", pitch = 100},
+	full = {path = "npc/scanner/scanner_scan2.wav", pitch = 100},
+	use = {path = "buttons/button16.wav", pitch = 75}
 }
 
 ENT.Model = "models/props_c17/consolebox03a.mdl"

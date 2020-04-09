@@ -169,10 +169,11 @@ function ENT:BroadcastUpdate()
 	end
 end
 
-local delay = 0.1 -- in seconds
+local delay = 0.5 -- in seconds
 
 function ENT:Think() -- increase stuff based on tickrate!!
 	local mul = self:GetStat("speed")
+	self.heatoffset = self.heatoffset or 0
 	
 	if self:GetRunning() then
 		-- eat paper
@@ -184,9 +185,16 @@ function ENT:Think() -- increase stuff based on tickrate!!
 		-- increment money
 		self:SetStat("money", self:GetStat("money") + (self:GetRate("money") * delay * mul))
 		
-		if self:GetStat("heat") >= self:GetStatMax("heat") and not self:IsOnFire() then
-			self:Ignite(5) -- it will be reignited if the heat is not handled quickly.
-		end
+		--[[
+			explosive calculation is as follows:
+			100,000 at speed 0.1
+			10,000 less for every click 
+		]]--
+		
+		self.Likelyhood = 110000 - (mul * 100000)
+		
+		local boom = math.floor(math.random(1, self.Likelyhood))
+		if boom == 1 and self:GetStat("fan") == 1 then self:BreakFan() end
 	end
 	
 	self:NextThink(0) -- do not manually think! let the timer call it instead.
@@ -203,22 +211,18 @@ function ENT:Think() -- increase stuff based on tickrate!!
 		if self:GetRunning() and self:GetStat("fan") == 0 then target = maxheat * 1.25 end -- enough to make it boom, but not too quickly.
 		if self:GetRunning() and self:GetStat("fan") == 1 then target = ambient + (range * mul) end
 		
+		if math.random(1,10) == 1 then self.heatoffset = math.random(-5,5) end
+		
+		target = target + self.heatoffset
 		if heat < target then heat = heat + (target - heat) / 64 end
 		if heat > target then heat = heat - (heat - target) / 64 end
 		
+		if heat >= maxheat and not self:IsOnFire() then
+			self:Ignite(5) -- it will be reignited if the heat is not handled quickly.
+		end
+		
 		self:SetStat("heat", heat)
 
-		--[[
-			explosive calculation is as follows:
-			100,000 at speed 0.1
-			10,000 less for every click 
-		]]--
-		
-		self.Likelyhood = 110000 - (mul * 100000)
-		
-		local boom = math.floor(math.random(1, self.Likelyhood))
-		if boom == 1 and self:GetStat("fan") == 1 then self:BreakFan() end
-		
 		if self:GetStat("fan") == 0 and math.random(1, 15) == 1 then
 			local effectdata = EffectData()
 			effectdata:SetStart(self:GetFanPos())

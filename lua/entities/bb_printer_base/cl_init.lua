@@ -34,7 +34,7 @@ function ENT:Initialize() -- spawn
 		self.MotorSound = CreateSound(self, self.Sounds.motor.path)
 		self.MotorSound:SetSoundLevel(60)
 		
-		self.FanSound = CreateSound(self, "tylerb/server_fan.mp3")
+		self.FanSound = CreateSound(self, "tylerb/server_fan.mp3") -- ambient/office/tech_room.wav
 		self.FanSound:SetSoundLevel(60)
 	end
 end
@@ -75,6 +75,15 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 		
 		if self.MotorSound:IsPlaying() then self.MotorSound:Stop() end
 		if self.FanSound:IsPlaying() then self.FanSound:Stop() end
+		
+		if self:GetStat("money") >= self:GetStatMax("money") and self:GetStat("speed") > 0 then
+			self.moneybeep = self.moneybeep or 0
+			
+			if CurTime() - self.moneybeep > 2 then
+				self.moneybeep = CurTime()
+				self:EmitSound(self.Sounds.full.path, 60, self.Sounds.full.pitch)
+			end
+		end
 		
 		if self:GetStat("fan") == 0 then
 			self:StopParticles()
