@@ -206,10 +206,11 @@ function ENT:Think() -- increase stuff based on tickrate!!
 	-- handle heat
 	
 	if self.PrinterInfo.type == "printer" then
-		local target = 0
+		local ambient = 22
+		local target = ambient
 		local heat = self:GetStat("heat")
 		local maxheat = self:GetStatMax("heat")
-		local ambient = 22
+		
 		local range = (maxheat - ambient) * 0.9 -- 0.9 for "breathing room" at max speed
 		
 		if self:GetRunning() and self:GetStat("fan") == 0 then target = maxheat * 1.25 end -- enough to make it boom, but not too quickly.
