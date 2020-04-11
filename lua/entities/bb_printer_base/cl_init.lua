@@ -65,7 +65,7 @@ function ENT:Think() -- handle stuff, only run if player is nearby.
 				end
 			end
 		else
-			self.CLEnts.fan:StopParticles()
+			if IsValid(self.CLEnts.fan) then self.CLEnts.fan:StopParticles() end
 		end
 		
 		if self:GetStat("fan") == 1 and !self.FanSound:IsPlaying() then self.FanSound:Play() end

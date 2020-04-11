@@ -16,17 +16,17 @@ ENT.Sounds = {
 	use = {path = "buttons/button17.wav", pitch = 50}
 }
 
-ENT.Model = "models/props/CS_militia/furnace01.mdl"
+ENT.Model = "models/props_lab/reciever_cart.mdl"
 
 ENT.PrinterInfo = { -- per second
 	button = {
-		pos = Vector(14, 0, 28.5),
+		pos = Vector(-11, 4.25, 7),
 		size = 12
 	},
 	
 	fan = {
-		pos = Vector(15.5, 0, 61.25),
-		size = 16
+		pos = Vector(-0.75, 19, 11.15),
+		size = 15
 	},
 	
 	health = {
